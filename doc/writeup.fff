@@ -1,0 +1,9 @@
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=\textwidth]{figures/xprogression.png}
+\caption{default}
+\label{default}
+\end{center}
+\end{figure}
+\efloatseparator
+ 
