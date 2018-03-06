@@ -36,8 +36,10 @@ smoothnessx = [1,0.5];
 % scale the magnitudes of the foreced responses
 xscale = [2,0.7];
 
+% measurement error on the observed Y
+sigmaW = 1;
+
 % scaling factors as in Smith et al. 20xx
-alphaC = 0.7;
 gammaC = [0.5,0.6];
 
 % set seed for reproducibility

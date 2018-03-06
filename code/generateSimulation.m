@@ -44,10 +44,10 @@ for xInd=1:p
 end
 
 % generate the Y noise Nu (correct scale?)
-Nu = mvnrnd(zeros(n,1), 1/alphaC * SigSqr,1)';
+W = mvnrnd(zeros(n,1), sigmaW * eye(n),1)';
 
 % generate the resultant observed Y
-Yobs = XensembleMean * beta0 + Nu;
+Yobs = XensembleMean * beta0 + W;
 
 % generate the true climate response
 Ystar = Xstar * beta0;
