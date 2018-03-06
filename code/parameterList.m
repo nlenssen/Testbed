@@ -6,6 +6,10 @@
 % D+A Testbed Version: 1.0.0 (December 6, 2017)
 
 
+% set paths
+plotDirectory ='figures';
+dataDirectory ='output';
+
 % number of observations (50 x 50 right now)
 q = 50;
 n = q^2;
@@ -19,11 +23,11 @@ nx = 100;
 % the random factor e-value modification
 rng(250); lambda = unifrnd(0.5,1.5,nx,1).^2; % to replicate the figures
 
-% whitening parameter for the noise covariance (0 is iid)
-rho = 0.9;    
+% whitening parameter for the climate variability covariance (0 is iid)
+rho = 1;
 
 % number of ensembles (scaling of eta relative to nu)
-m = 5;        
+m = 5;
 
 % set coefficients
 p = 2;
