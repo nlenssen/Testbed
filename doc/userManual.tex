@@ -1,0 +1,154 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+\pagestyle{plain} 			    % numbers at bottom of page on page 2+
+%\geometry{landscape}                % Activate for for rotated page geometry
+\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{amssymb}
+\usepackage{caption}
+\usepackage{bm}
+
+\usepackage{gensymb} % for \degree
+
+\usepackage{enumitem} % for enumerate modifications
+
+\usepackage{bbm}
+
+\usepackage{calc}
+\usepackage{lipsum}
+\makeatletter
+\newcommand{\tocfill}{\cleaders\hbox{$\m@th \mkern\@dotsep mu . \mkern\@dotsep mu$}\hfill}
+\makeatother
+\newcommand{\abbrlabel}[1]{\makebox[4.5cm][l]{\textbf{#1}\ \tocfill}}
+\newenvironment{abbreviations}{\begin{list}{}{\renewcommand{\makelabel}{\abbrlabel}%
+        \setlength{\labelwidth}{4.5cm}\setlength{\leftmargin}{\labelwidth+\labelsep}%
+                                              \setlength{\itemsep}{0pt}}}{\end{list}}                                     
+
+
+\usepackage{outlines}
+\usepackage{enumitem}
+\setenumerate[1]{label=\arabic*)} % These are for adjusting the outline letterings 
+\setenumerate[2]{label=-}
+\setenumerate[3]{label=\roman*.}
+\setenumerate[4]{label=\alph*.}
+
+\captionsetup{font=footnotesize}
+\usepackage[utf8]{inputenc}
+
+\title{Testbed for Detection and Attribution Methods}
+\author{Nathan Lenssen}
+\date{December 2017}
+\newcommand{\Prob}{\ensuremath{\mathbb{P}}}
+\newcommand{\E}{\ensuremath{\mathbb{E}}}
+\newcommand{\V}{\ensuremath{\text{Var}}}
+\newcommand{\C}{\ensuremath{\text{Cov}}}
+\newcommand{\insitu}{\emph{in situ }}
+
+% shortcut for bold
+\def\*#1{\bm{#1}}
+\def\C{\textbf{\text{C}}}
+\def\W{\textbf{\text{W}}}
+
+\begin{document}
+\maketitle
+
+\subsection{Model and parameters of interest}
+The fundamental formation of the detection and attribution problem is given by 
+\begin{align}
+\*y &= \*X \*\beta
+\end{align}
+In this relationship, $\*y$ is the observed climate response to the various forced responses $ \*X$. This model assumes that the forced responses are linear and independent. The problem is difficult statistically as we cannot measure either the climate response or the forced responses precisely. 
+
+In the OLS model (following Allen and Tett), we assume that we have random error according to the mean-zero internal climate variability $\C$. 
+\begin{align}
+\*y &= \*x \*\beta + \*u\: , \qquad \* u \sim \mathcal{N}(0, \C)
+\end{align}
+The critical step in inference on $\beta$ is estimation of the climate variability. Since the dimensionality of the problem is generally much greater than the sample of control runs, empirical estimates of the climate variability will likely be non-invertible. The primary technique used is a pseudo-inverse method involving the eigen-decomposition to estimate the precision matrix describing the climate variability.
+
+The OLS model neglects that the forced responses are ovserved with error. Making the reasonable, but incomplete assumption that the forced responses follow the same climate variability as the control runs, we have the model
+\[
+\*y = \sum_{j=1}^J \*(\*x_j - \*u_j) \beta_j + \*u_0\: , \quad \*u_0,\*u_1,\dots,\*u_J \stackrel{\text{iid}}{\sim} \mathcal{N}(0,\C)
+\]
+This is known as the total least squares (TLS) problem and the solution is found algorithmically through optimization of the likelihood function. Like the OLS method, the climate variability $\C$ needs to be estimated separately.
+
+State-of-the-art methods for detection and attribution relax some of the assumptions made in the TLS model and/or use more sophisticated techniques for the estimation of $\C$. One inclusion that is relevant to the testbed is accounting for measurement error in $\*y$, the true climate response. This is done by including a white noise covariance $\W$
+
+\newpage
+\subsection{Testbed Parameters}
+\emph{We follow the notation of Smith, Hammerling, Katzfuss and note changes from the previous generation of documentation. }
+
+\textbf{Problem Size/Dimensionality}
+
+\begin{itemize}
+\item[ \texttt{n}] Total number of spatial locations 
+\item[\texttt{q}] Number of locations per grid dimension where $\text{\texttt{q}} = \sqrt{\text{\texttt{n}}}$
+\item[\texttt{L}] Number of simulations per response patterns (previously \texttt{m})
+\item[\texttt{L0}] Number of control runs (previously fixed at $L_0 = 300$)
+\end{itemize}
+
+
+\emph{\textbf{Notes: }The problem is determined on the square domain of $[0,1]^2$. Code runs in less than 10 seconds with $n=2500$, but slows quickly past due to some large matrix inversions. Setting the number of response and control runs high allows for robustness analysis of models to ensemble size without rerunning the testbed.}
+
+\textbf{Regression Parameters}
+\begin{itemize}
+\item[\texttt{M}] Number of response patterns  (previously \texttt{p})
+\item[ \texttt{beta0}] True regression response parameters $[M \times 1]$
+\item[\texttt{sigmaW}] Variance of the (iid) observational error on the climate response $[1 \times 1]$
+\end{itemize}
+
+\textbf{Climate Variability Simulation}
+\begin{itemize}
+\item[ \texttt{dExp}] Parameter controlling the scale of the exponential kernel
+\item[\texttt{nx}] Eigenvalue cutoff for the rectangular basis
+\item[\texttt{lambda}] Multiplicative eigenvalue modifications
+\item[\texttt{rho}] Climate variability whitening parameter $\rho \in [0,1]$ with $\rho=0$ corresponding to spatially independent field.
+\end{itemize}
+\emph{\textbf{Notes: }We are currently using an exponential kernel parameterized by $d$ where we modify the top \texttt{nx}eigenvalues by multiplicative factors. The code is written so that different climate variability schemes can be dropped in as Matlab functions.}
+
+\textbf{Forced Response Simulation}
+\begin{itemize}
+\item[ \texttt{alphax}] Inverse of the range of the correlation $[1 \times M]$
+\item[\texttt{smoothnessx}] Number of derivatives used in Mat\'ern expansion $[1 \times M]$
+\item[\texttt{xscale}] Magnitude of each forced response $[1 \times M]$
+\item[\texttt{gammaC}] Noise magnitude of each forced response $[1 \times M]$
+\end{itemize}
+\emph{\textbf{Notes: }We are currently using Mat\'ern random fields to simulate forced responses due to their speed and flexibility. Each response is individually parameterized. As in the climate variability, it is easy to change the method by a single-line edit.}
+
+\clearpage
+\subsection{Parameter Settings}
+\textbf{Fixed Parameter Settings:} 
+
+Dimensionality: $(q,n,L,L_0) = (50,2500,25,1000)$
+
+Regression: $(M,\beta_0) = (2,[1,1])$
+
+
+
+\subsection{Features to Show Off}
+\begin{outline}
+\1 Variety of possible covariance functions that we can generate. Generate a really strange, non-isotropic one!!!
+\2 Looks like cranking up the $d$ parameter on the exponential kernel way above 1 and making the deviations of the eigenvalues very high creates some crazy covariance fields. Settings that make a crazy plot are: 
+
+\texttt{dExp = 5; }\\
+\texttt{nx = 100;}\\
+\texttt{rng(251); lambda = exp(unifrnd(-2.5,2.5,nx,1));}
+\1 Show a variety of Mat\'ern fields. End up picking two that are pretty different in terms of correlation range so that we can maybe see the pattern of each when added together.
+\1 Use a variety of ensemble sizes of the forced responses to show how estimates of the forced responses through the ensemble mean alone improve. (whiteness comes into play here)
+\1 Think about how the current figures can be put into a presentation to show how we are simulating the final observed and forced responses.
+\1 Show how estimation of the climate variability improves with use of more control simulations
+
+\end{outline}
+
+\subsection{Questions to answer}
+\begin{itemize}
+\item Should we be whitening $\C$, the climate variability? If so, what is the physical meaning behind this whitening?
+\item Do we still need both the x-scale and $\gamma_C$ parameters? Looks like probably: x-scale modifies the magnitude of the signal, $\gamma_C$ modifies the magnitude of the noise. There may be a different way to parameterize this, but we do need two parameters to set the relative scale of the forced responses as well as the signal-to-noise ratio of each of the forced responses.
+\item Do we need to add autocorrelation to the simulation of the control fields?
+\end{itemize}
+
+
+
+\end{document}

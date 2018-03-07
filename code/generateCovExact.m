@@ -37,7 +37,7 @@ function [Vfinal, dfinal, Sig, SigSqr, SigInvSqr] = generateCovExact(n, nx, lamb
 
 	%% Construction of the output covariance matricies
 	% vector of eigenvalues (length nx) adjusted by lambda
-	dt = d(1:nx).*lambda;
+	dt = dfinal.*lambda;
 
 	% create the distance mat
 	drho = rho*d(1:nx);

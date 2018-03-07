@@ -15,10 +15,10 @@ rng(seed)
 
 
 %% generate regressors (currently matern, scale?, whitening?)
-XstarRaw = zeros(n,p);
-for pInd=1:p
-	maternCovX = generateMatern(n,alphax(pInd),smoothnessx(pInd));
-	XstarRaw(:,pInd) = mvnrnd(zeros(n,1), maternCovX,1)';
+XstarRaw = zeros(n,M);
+for MInd=1:M
+	maternCovX = generateMatern(n,alphax(MInd),smoothnessx(MInd));
+	XstarRaw(:,MInd) = mvnrnd(zeros(n,1), maternCovX,1)';
 end
 
 % center and (standarize?) the xstars
@@ -29,17 +29,17 @@ xScaleFactor = kron(xscale,ones(n,1));
 Xstar = xScaleFactor .* XstarStd;
 
 % generate the X noise Eta (correct scale?, whiten?)[nx(mxp)]
-XstarExpand = kron(Xstar,ones(1,m));
-Eta = mvnrnd(zeros(n,1), SigSqr,p*m)';
+XstarExpand = kron(Xstar,ones(1,L));
+Eta = mvnrnd(zeros(n,1), SigSqr,M*L)';
 
 % generate the observed X [nx(mxp)]
-gammaFactor = kron(gammaC.^(-1),ones(n,m));
+gammaFactor = kron(gammaC.^(-1),ones(n,L));
 Xobs = XstarExpand + gammaFactor .* Eta;
 
 % calculate the ensemble means for each of the regressors
-XensembleMean = zeros(n,p);
-for xInd=1:p
-	inds = (1+(m*(xInd-1))):(m*(xInd));
+XensembleMean = zeros(n,M);
+for xInd=1:M
+	inds = (1+(L*(xInd-1))):(L*(xInd));
 	XensembleMean(:,xInd) = mean(Xobs(:,inds),2);
 end
 
@@ -53,4 +53,4 @@ Yobs = XensembleMean * beta0 + W;
 Ystar = Xstar * beta0;
 
 % generate control runs
-EpsilonEnsemble = mvnrnd(zeros(n,1),SigSqr,300)';
+EpsilonEnsemble = mvnrnd(zeros(n,1),SigSqr,L0)';
