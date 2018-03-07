@@ -1,6 +1,7 @@
-addpath('code')
+% addpath('code')
 
-% load in the parameter list to the workspace
+% load in the parameter list to the workspace and make the irrelevant
+% dimensions as small as possible
 parameterList
 L=1; L0=1; 
 

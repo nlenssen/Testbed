@@ -130,12 +130,18 @@ Regression: $(M,\beta_0) = (2,[1,1])$
 \subsection{Features to Show Off}
 \begin{outline}
 \1 Variety of possible covariance functions that we can generate. Generate a really strange, non-isotropic one!!!
-\2 Looks like cranking up the $d$ parameter on the exponential kernel way above 1 and making the deviations of the eigenvalues very high creates some crazy covariance fields. Settings that make a crazy plot are: 
+\2 Looks like cranking up the $d$ parameter on the exponential kernel way above 1 and making the deviations of the eigenvalues very high creates some crazy covariance fields.
+
+\2Settings that make a crazy plot are: 
 
 \texttt{dExp = 5; }\\
 \texttt{nx = 100;}\\
 \texttt{rng(251); lambda = exp(unifrnd(-2.5,2.5,nx,1));}
+\2 See \texttt{code/presentationExperiments/climVarExperimentation.m} for simulation code and plotting
 \1 Show a variety of Mat\'ern fields. End up picking two that are pretty different in terms of correlation range so that we can maybe see the pattern of each when added together.
+\2 This is quite easy to tweak other than the relative scale of the two fields which still needs to be \emph{ad hoc} tuned 
+\2 Adjusting by the average square value of the fields seems like a reasonable hacky fix. 
+\2 Code for experimentation and plotting can be found in 
 \1 Use a variety of ensemble sizes of the forced responses to show how estimates of the forced responses through the ensemble mean alone improve. (whiteness comes into play here)
 \1 Think about how the current figures can be put into a presentation to show how we are simulating the final observed and forced responses.
 \1 Show how estimation of the climate variability improves with use of more control simulations
@@ -143,11 +149,13 @@ Regression: $(M,\beta_0) = (2,[1,1])$
 \end{outline}
 
 \subsection{Questions to answer}
-\begin{itemize}
-\item Should we be whitening $\C$, the climate variability? If so, what is the physical meaning behind this whitening?
-\item Do we still need both the x-scale and $\gamma_C$ parameters? Looks like probably: x-scale modifies the magnitude of the signal, $\gamma_C$ modifies the magnitude of the noise. There may be a different way to parameterize this, but we do need two parameters to set the relative scale of the forced responses as well as the signal-to-noise ratio of each of the forced responses.
-\item Do we need to add autocorrelation to the simulation of the control fields?
-\end{itemize}
+\begin{outline}
+\1 Should we be whitening $\C$, the climate variability? If so, what is the physical meaning behind this whitening?
+\1 Do we still need both the x-scale and $\gamma_C$ parameters? Looks like probably: x-scale modifies the magnitude of the signal, $\gamma_C$ modifies the magnitude of the noise. There may be a different way to parameterize this, but we do need two parameters to set the relative scale of the forced responses as well as the signal-to-noise ratio of each of the forced responses.
+\2 In a similar vein, is there a smarter way to balance the relative scales of the Mat\'ern generated forced responses? How do you take the norm of a matrix? What norm could we use to fix the ratio between the two fields?
+\2 Could this philosophy be used to fix a signal-to-noise ratio in a more robust way as well?
+\1 Do we need to add autocorrelation to the simulation of the control fields?
+\end{outline}
 
 
 

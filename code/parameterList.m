@@ -13,6 +13,10 @@ dataDirectory ='output';
 % set seed for reproducibility
 seed = 125;
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem Size/Dimensionality
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % number of observations (50 x 50 right now)
 q = 50;
 n = q^2;
@@ -24,12 +28,20 @@ L = 25;
 % the number of control runs
 L0 = 1000;
 
+%%%%%%%%%%%%%%%%%%%%%%%
+% Regression Parameters
+%%%%%%%%%%%%%%%%%%%%%%%
+
 % set coefficients
 M=2;
 beta0 = ones(M,1);
 
 % measurement error on the observed Y
 sigmaW = 1;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Climate Variability Simulation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % kernel scale
 dExp = 0.25;
@@ -42,6 +54,10 @@ rng(250); lambda = unifrnd(0.5,1.5,nx,1).^2; % to replicate the figures
 
 % whitening parameter for the climate variability covariance (0 is iid)
 rho = 1;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Forced Response Simulation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % control the shape of the Matern for the true focings Xstar
 alphax = [1,3];
