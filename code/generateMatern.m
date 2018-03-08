@@ -2,7 +2,7 @@
 % grid for a given resolution (adapted from the Rfields package to MATLAB)
 
 % Author: Nathan Lenssen, Columbia University (lenssen@ldeo.columbia.edu)
-% D+A Testbed Version: 1.0.0 (December 6, 2017)
+% D+A Testbed Version: 1.1.0 (March 2018)
 
 
 % INPUT:

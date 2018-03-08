@@ -3,7 +3,7 @@
 % we will save to more general filetypes to allow distribution of results.
 
 % Author: Nathan Lenssen, Columbia University (lenssen@ldeo.columbia.edu)
-% D+A Testbed Version: 1.0.0 (December 6, 2017)
+% D+A Testbed Version: 1.1.0 (March 2018)
 
 
 % collect all of the objects in a struct
@@ -12,7 +12,7 @@
 latent = struct('Ystar',Ystar,'Xstar',Xstar);
 
 % observed objects
-observed = struct('Yobs',Yobs,'Xobs',Xobs,'EpsilonEnsemble',EpsilonEnsemble);
+observed = struct('Yobs',Yobs,'Xobs',Xobs,'ControlEnsemble',U0Ensemble);
 
 % collect as single object
 outStruct = struct('latent',latent,'observed',observed);

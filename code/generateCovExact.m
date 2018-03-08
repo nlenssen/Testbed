@@ -3,7 +3,7 @@
 % to the eigenvalues of an exponential RBF generated covariance matrix.
 
 % Author: Nathan Lenssen, Columbia University (lenssen@ldeo.columbia.edu)
-% D+A Testbed Version: 1.0.0 (December 6, 2017)
+% D+A Testbed Version: 1.1.0 (March 2018)
 
 % INPUT:
 % n:  	  number of observations (50 x 50 right now)
@@ -11,16 +11,16 @@
 % d0:     exponential basis parmaeter
 % nx:     top eigenvalues to take
 % lambda: vector of length nx to modify the eigenvalues by
-% rho:    whitening parameter
+% delta:    whitening parameter
 
 % OUTPUT:
 % Vfinal:  	 Eigenvectors of covariance matrix	
 % dfinal:    Eigenvalues of covariance matrix (modified by lambda)
 % Sig:     	 Covariance matrix w/o whitening
-% SigSqr:    Covariance matrix w/ whitening according to rho
-% SigInvSqr: Precision matrix w/ whitening according to rho
+% SigSqr:    Covariance matrix w/ whitening according to delta
+% SigInvSqr: Precision matrix w/ whitening according to delta
 
-function [Vfinal, dfinal, Sig, SigSqr, SigInvSqr] = generateCovExact(n, nx, lambda, rho, V, d)
+function [Vfinal, dfinal, Sig, SigSqr, SigInvSqr] = generateCovExact(n, nx, lambda, delta, V, d)
 	%% setup grid 
 	q = ceil(sqrt(n));
 	xSeq = linspace(0,1,q);
@@ -40,21 +40,21 @@ function [Vfinal, dfinal, Sig, SigSqr, SigInvSqr] = generateCovExact(n, nx, lamb
 	dt = dfinal.*lambda;
 
 	% create the distance mat
-	drho = rho*d(1:nx);
-	Drho = ones(n,1)*drho'; 
-	D = (Vfinal.*Drho)*Vfinal' + (1-rho)*eye(n);
+	ddelta = delta*dfinal;
+	Ddelta = ones(n,1)*ddelta'; 
+	D = (Vfinal.*Ddelta)*Vfinal' + (1-delta)*eye(n);
 
 	% create the various covariance matricies (using the 1mat trick to only 
 	% have to perform one n^2 matrix multiplication)
-	drhoSig = rho*dt;
-	sigD = ones(n,1)*drhoSig'; 
-	Sig = (Vfinal.*sigD)*Vfinal' + (1-rho)*eye(n);
+	ddeltaSig = delta*dt;
+	sigD = ones(n,1)*ddeltaSig'; 
+	Sig = (Vfinal.*sigD)*Vfinal' + (1-delta)*eye(n);
 
-	drhoSqrSig = sqrt(rho*dt+(1-rho)) - sqrt(1-rho);
-	sqrSigD = ones(n,1)*drhoSqrSig';
-	SigSqr = (Vfinal.*sqrSigD)*Vfinal' +sqrt(1-rho)*eye(n);
+	ddeltaSqrSig = sqrt(delta*dt+(1-delta)) - sqrt(1-delta);
+	sqrSigD = ones(n,1)*ddeltaSqrSig';
+	SigSqr = (Vfinal.*sqrSigD)*Vfinal' +sqrt(1-delta)*eye(n);
 
-	drhoInvSig = 1./sqrt(rho*dt+(1-rho)) - 1/sqrt(1-rho);
-	invsqrD = ones(n,1)*drhoInvSig';
-	SigInvSqr = (Vfinal.*invsqrD)*Vfinal' + 1/sqrt(1-rho)*eye(n);
+	ddeltaInvSig = 1./sqrt(delta*dt+(1-delta)) - 1/sqrt(1-delta);
+	invsqrD = ones(n,1)*ddeltaInvSig';
+	SigInvSqr = (Vfinal.*invsqrD)*Vfinal' + 1/sqrt(1-delta)*eye(n);
 end

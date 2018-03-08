@@ -3,7 +3,7 @@
 % use of the testbed.
 
 % Author: Nathan Lenssen, Columbia University (lenssen@ldeo.columbia.edu)
-% D+A Testbed Version: 1.0.0 (December 6, 2017)
+% D+A Testbed Version: 1.1.0 (March 2018)
 
 
 % set paths
@@ -21,10 +21,6 @@ seed = 125;
 q = 50;
 n = q^2;
 
-
-% number of ensembles (scaling of eta relative to nu)
-L = 25;
-
 % the number of control runs
 L0 = 1000;
 
@@ -34,14 +30,35 @@ L0 = 1000;
 
 % set coefficients
 M=2;
-beta0 = ones(M,1);
 
-% measurement error on the observed Y
-sigmaW = 1;
+% number of ensembles (eventually length M)
+L = 25;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Climate Variability Simulation
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% true regression parameters
+betaTrue = ones(M,1);
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (M1) Forced Response Simulation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% currently using a matern spatial field as the true forced response
+
+% control the shape of the Matern for the true focings Xstar
+alphax = [1,3];
+smoothnessx = [1,0.5];
+
+% scale the magnitudes of the foreced responses
+xscale = [2,0.7];
+
+% scaling factors as in Smith et al. 20xx
+gammaC = [0.5,0.6];
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (M2) Climate Variability Simulation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% currently using a eigen-perturbed exponential kernel
 
 % kernel scale
 dExp = 0.25;
@@ -53,18 +70,12 @@ nx = 100;
 rng(250); lambda = unifrnd(0.5,1.5,nx,1).^2; % to replicate the figures
 
 % whitening parameter for the climate variability covariance (0 is iid)
-rho = 1;
+delta = 1;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Forced Response Simulation
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (M3) Observational Error Simulation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% currently using iid errors
 
-% control the shape of the Matern for the true focings Xstar
-alphax = [1,3];
-smoothnessx = [1,0.5];
-
-% scale the magnitudes of the foreced responses
-xscale = [2,0.7];
-
-% scaling factors as in Smith et al. 20xx
-gammaC = [0.5,0.6];
+% measurement error on the observed Y
+sigmaW = 0.25;

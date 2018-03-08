@@ -30,7 +30,7 @@
 
 \usepackage{outlines}
 \usepackage{enumitem}
-\setenumerate[1]{label=\arabic*)} % These are for adjusting the outline letterings 
+\setenumerate[1]{label=(\arabic*)} % These are for adjusting the outline letterings 
 \setenumerate[2]{label=-}
 \setenumerate[3]{label=\roman*.}
 \setenumerate[4]{label=\alph*.}
@@ -56,66 +56,137 @@
 \maketitle
 
 \subsection{Model and parameters of interest}
-The fundamental formation of the detection and attribution problem is given by 
+Throughout this discussion, we represent matrices by capital, bold letters such as $\C$ and $\*X$, columns of these vectors by subscripts of the corresponding lowercase letter where $\*x_m$ is the m$^{\text{th}}$ column of the matrix $\*X$. Vector quantities are denoted by lower case bold letters such as $\*y$ and $\*\beta$, in agreement with the notation of matrix columns. Scalar elements of vectors are denoted of plain lowercase with subscripts as in $\beta_m$. 
+
+The historical formation of the detection and attribution problem is that the observed climate is a consequence of responses to external forcings. The signficant of each of the forced responses is found by the ordinary least square solution (OLS) of the linear model
 \begin{align}
-\*y &= \*X \*\beta
+\*y &= \*X^* \*\beta + \* u
 \end{align}
-In this relationship, $\*y$ is the observed climate response to the various forced responses $ \*X$. This model assumes that the forced responses are linear and independent. The problem is difficult statistically as we cannot measure either the climate response or the forced responses precisely. 
+In this relationship, $\*y$ is the observed climate response to the various forced responses $ \*X^*$. We use the `star' in $\*X^*$ as a reminder that the OLS formulation assumes that the forced responses are known, nonrandom quantities (without error). 
+
+In general, the climate responses $\*y$ are some sort of observational data. In contrast, the forced responses that comprise the $ \*X^*$ matrix are typically experiments from climate models where each of the columns $\*x^*_m$ represent the outcome of an independent forcing experiment run in a climate model. The problem is difficult statistically as we cannot measure either the climate response or the forced responses precisely; there are various uncertainties that need to be accounted for.
 
 In the OLS model (following Allen and Tett), we assume that we have random error according to the mean-zero internal climate variability $\C$. 
 \begin{align}
-\*y &= \*x \*\beta + \*u\: , \qquad \* u \sim \mathcal{N}(0, \C)
+\*y &= \*X^* \*\beta + \*u\: \nonumber \\
+&= \left (\sum_{m=1}^M \*x^*_m \beta_m \right ) + \*u \:, \qquad \* u \sim \mathcal{N}(0, \C)
 \end{align}
-The critical step in inference on $\beta$ is estimation of the climate variability. Since the dimensionality of the problem is generally much greater than the sample of control runs, empirical estimates of the climate variability will likely be non-invertible. The primary technique used is a pseudo-inverse method involving the eigen-decomposition to estimate the precision matrix describing the climate variability.
+Where the second line is rewriting the The critical step in inference on $\beta$ is estimation of the climate variability. Since the dimensionality of the problem is generally much greater than the sample of control runs, empirical estimates of the climate variability will likely be non-invertible. The primary technique used is a pseudo-inverse method involving the eigen-decomposition to estimate the precision matrix describing the climate variability.
 
-The OLS model neglects that the forced responses are ovserved with error. Making the reasonable, but incomplete assumption that the forced responses follow the same climate variability as the control runs, we have the model
+The OLS model neglects that the forced responses are observed with error by assuming that they are perfectly known. However, climate model output is also subject to internal climate variability. The class of statistical regression models where only noisy observations of the regressor are available is called error in variable (EIV) models.  Making the reasonable assumption that the forced responses follow the same climate variability as the control runs, we have the model
+\begin{equation} \label{eq:tls}
+\*y = \sum_{m=1}^M \*(\*x_m - \*u_m) \beta_m + \*u_0\: , \quad \*u_0,\*u_1,\dots,\*u_M \stackrel{\text{iid}}{\sim} \mathcal{N}(0,\C)
+\end{equation}
+This is known as the total least squares (TLS) problem and the solution is found algorithmically through optimization of the likelihood function. Like the OLS method, the climate variability $\C$ is assumed fixed during the estimation of $\*\beta$ and needs to be estimated separately. 
+
+The formulation of the TLS model in equation \ref{eq:tls} can be cumbersome to work with as the EIV structure is hidden all in one equation. To better see the how the various uncertainties effect the estimation of $\beta$, it can be helpful to formulate the problem in two equations: one describing the observed climate response and another describing the model-derived forced responses. Following the notation from above, we can rewrite our EIV model as
+\begin{align} \label{eq:eiv}
+\*y &= \*X^* \*\beta + \*\nu \nonumber \\
+\*X &= \*X^* + \*U \: , \qquad \*U = (\*u_1, \dots, \*u_M) \stackrel{\text{iid}}{\sim} \mathcal{N}(0,\C)
+\end{align}
+We will use this formulation for the remainder of the discussion as it transparently shows the different variabilities acting upon the observed climate response and the model generated forced responses. Note that we did not specify a distribution for the error on the observed response $\*y$, denoted $\*\nu$ in equation \ref{eq:eiv}. In the formulation of TLS presented in equation \ref{eq:tls}, $\*\nu = \*u_0$ and is a random error according to the climate variability $\C$. One of the current areas of interest in the statistical detection and attribution community is thinking more deeply about the form of the error on $\*y$. For the purpose of the testbed, we have an error on the observed response $\*\nu$ of the form
 \[
-\*y = \sum_{j=1}^J \*(\*x_j - \*u_j) \beta_j + \*u_0\: , \quad \*u_0,\*u_1,\dots,\*u_J \stackrel{\text{iid}}{\sim} \mathcal{N}(0,\C)
+\V(\*\nu) = \C + \W
 \]
-This is known as the total least squares (TLS) problem and the solution is found algorithmically through optimization of the likelihood function. Like the OLS method, the climate variability $\C$ needs to be estimated separately.
+Where $\C$ is the covariance matrix of the climate variability and $\W$ is the covariance matrix of the observational error (It is also proposed to include the climate model error and linearization error).
 
-State-of-the-art methods for detection and attribution relax some of the assumptions made in the TLS model and/or use more sophisticated techniques for the estimation of $\C$. One inclusion that is relevant to the testbed is accounting for measurement error in $\*y$, the true climate response. This is done by including a white noise covariance $\W$
+As a sanity check that we are describing the same system, we want to make our expanded EIV formulation in the form of the TLS problem. Making the statistical models in equation \ref{eq:tls} and \ref{eq:eiv} agree, we write our classical TLS formulation as
+\begin{align} \label{eq:finaltls}
+\*y = \sum_{m=1}^M \*(\*x_m - \*u_m) \beta_m + \*\nu' \: , \quad \*u_1,\dots,\*u_M &\stackrel{\text{iid}}{\sim} \mathcal{N}(0,\C) \\
+\*\nu'&\sim \mathcal{N}(0,\W) \nonumber
+\end{align}
+which results in an error on the observed $\*y$ of the form
+\[
+\*\nu = ( \*u_0 + \*\varepsilon)  \sim \mathcal{N}(0,\C+\W)
+\]
+where $\*\varepsilon \sim \mathcal{N}(0,\W)$ represents the observational error. 
+
+\textcolor{red}{\emph{I am almost certain my formulation in equation \ref{eq:finaltls} is incorrect. Would love to discuss to figure out where I am losing track of the variance!}}
 
 \newpage
-\subsection{Testbed Parameters}
-\emph{We follow the notation of Smith, Hammerling, Katzfuss and note changes from the previous generation of documentation. }
+\subsection{Estimation of Climate Variability}
+Classical detection and attribution methods are predicated on the assumption that the climate variability $\C$ is a known quantity. 
 
-\textbf{Problem Size/Dimensionality}
+Control runs...
 
+\textcolor{red}{\emph{Finish this section later!!!!}}
+\subsection{Model Ensembles}
+So far, our discussion has not addressed how multi-run ensembles of climate model output are incorporated into the EIV framework. Climate ensembles come into play in the forced response experiments as well as the control runs used to estimate the climate variability. We denote  $\ell^{\text{th}}$ run of the $m^{\text{th}}$ forced response experiment as $\*x_m^{(\ell)}$. Likewise, we denote the $\ell^{\text{th}}$ control run as $\*x_0^{(\ell)}$. Similarly, the total number of runs in the ensemble for the $m^{\text{th}}$ forced response is given by $L_m$ and the total number of control runs is $L_0$. This notation is for a single climate model, but can be extended to multimodel ensembles.
+
+\subsection{Testbed Output}
+The testbed returns two groups of data objects: objects that mimic the variables that are available in real-data problems, and objects that are unknown, or latent, in real-data problems and are used in the testing setting to determine the performance of methods. As mentioned in the previous section, we prefer viewing the problem through the expanded EIV formulation 
+\begin{align} \label{eq:finaleiv}
+\*y &= \*X^* \*\beta + \*\nu \qquad \*\nu  \sim \mathcal{N}(0,\C + \W) \nonumber \\
+\*X &= \*X^* + \*U \: , \qquad \*U = (\*u_1, \dots, \*u_M) \stackrel{\text{iid}}{\sim} \mathcal{N}(0,\C)
+\end{align}
+as it clearly separates the error processes for the observed climate responses $\*y$ and the $M$ model generated forced responses $\*X = (\*x_1, \dots, \*x_M)$. The formulation in equation \ref{eq:finaleiv} is that it clearly separates variables that are known and unknown. We will also see that this formulation serves as pseudocode for the simulations required for our testbed.
+
+\begin{outline}
+\1 \textbf{Observed Data Objects:} These objects simulate the data that we have to work with in real-world (non-simulation) dettection and attribution problems. They are the only data used when running a detection and attribution method.
+\2 [$\*y$:] The observed climate response. Generally some sort of observational product derived from station and remote sensed data. 
+\2 [$\*X$:] The forced climate response according to climate model output. There are $K$ different forced responses where the $k^{\text{th}}$ forced response has an ensemble of size $L_k$ 
+\2 [$\*x_0$:] Control runs of climate models used to estimate the climate variability $\C$. We have $L_0$ of these runs where
+\[
+\*x_0 = (\*x_0^{(1)}, \dots, \*x_0^{(\ell)}, \dots, \*x_0^{(L_0)})
+\]
+\1 \textbf{Latent Data Objects:} 
+\2 [$\*y^*$:] The true climate response from $\*y^* = \*X^* \*\beta$
+\2 [$\*X^*$:] The true forced responses. Again, there are $K$ forced responses
+\2 [$\C$:] The true covariance matrix of climate variability 
+\2 [$\W$:] The true observational error covariance on the climate response
+\end{outline}
+
+
+
+
+\subsection{Testbed Modules}
+The testbed has three major modules that are used to generate artificial data to be used for the testing of detection and attribution methods. They are all independent and individually tunable and replaceable to allow greater flexibility of the testbed. 
+\begin{enumerate}
+\item[(M1)] \textbf{Forced Response $\*X^*$:}
+\item[(M2)]  \textbf{Internal Climate Variability $\C$:}
+\item[(M3)]  \textbf{Observational Error $\W$:}
+\end{enumerate}
+
+
+\newpage
+\subsection{Testbed Computational Parameters}
+\emph{A list of the parameters that can be tuned in the Matlab code used to generate the testbed data. There are four groups of parameters, each controlling a separate part of the process. The climate variability and forced response modules are interchangeable to allow for more flexibility to the simulated scenarios.}
+
+\textbf{Problem Size/Dimensionality:} \\
+\emph{The problem is determined on the square domain of $[0,1]^2$. Code runs in less than 10 seconds with $n=2500$, but slows quickly past due to some large matrix inversions. Setting the number of response and control runs high allows for robustness analysis of models to ensemble size without rerunning the testbed.}
 \begin{itemize}
 \item[ \texttt{n}] Total number of spatial locations 
 \item[\texttt{q}] Number of locations per grid dimension where $\text{\texttt{q}} = \sqrt{\text{\texttt{n}}}$
-\item[\texttt{L}] Number of simulations per response patterns (previously \texttt{m})
 \item[\texttt{L0}] Number of control runs (previously fixed at $L_0 = 300$)
 \end{itemize}
 
 
-\emph{\textbf{Notes: }The problem is determined on the square domain of $[0,1]^2$. Code runs in less than 10 seconds with $n=2500$, but slows quickly past due to some large matrix inversions. Setting the number of response and control runs high allows for robustness analysis of models to ensemble size without rerunning the testbed.}
-
 \textbf{Regression Parameters}
 \begin{itemize}
 \item[\texttt{M}] Number of response patterns  (previously \texttt{p})
-\item[ \texttt{beta0}] True regression response parameters $[M \times 1]$
+\item[\texttt{L}] Vector with number of simulations per response pattern $L = (L_1, \dots, L_M)$  (previously \texttt{m})
+\item[ \texttt{betaTrue}] True regression response parameters (previously \texttt{beta0}) $[M \times 1]$
 \item[\texttt{sigmaW}] Variance of the (iid) observational error on the climate response $[1 \times 1]$
 \end{itemize}
 
-\textbf{Climate Variability Simulation}
+\textbf{Climate Variability Simulation [$\C$]}\\
+\emph{We are currently using an exponential kernel parameterized by $d$ where we modify the top \texttt{nx}eigenvalues by multiplicative factors. The code is written so that different climate variability schemes can be dropped in as Matlab functions.}
 \begin{itemize}
 \item[ \texttt{dExp}] Parameter controlling the scale of the exponential kernel
 \item[\texttt{nx}] Eigenvalue cutoff for the rectangular basis
 \item[\texttt{lambda}] Multiplicative eigenvalue modifications
-\item[\texttt{rho}] Climate variability whitening parameter $\rho \in [0,1]$ with $\rho=0$ corresponding to spatially independent field.
+\item[\texttt{delta}] Climate variability whitening parameter $\rho \in [0,1]$ with $\rho=0$ corresponding to spatially independent field. (previously \texttt{rho})
 \end{itemize}
-\emph{\textbf{Notes: }We are currently using an exponential kernel parameterized by $d$ where we modify the top \texttt{nx}eigenvalues by multiplicative factors. The code is written so that different climate variability schemes can be dropped in as Matlab functions.}
 
-\textbf{Forced Response Simulation}
+\textbf{Forced Response Simulation [$\*X^*$]} \\
+\emph{We are currently using Mat\'ern random fields to simulate forced responses due to their speed and flexibility. Each response is individually parameterized. As in the climate variability, it is easy to change the method by a single-line edit.}
 \begin{itemize}
 \item[ \texttt{alphax}] Inverse of the range of the correlation $[1 \times M]$
 \item[\texttt{smoothnessx}] Number of derivatives used in Mat\'ern expansion $[1 \times M]$
 \item[\texttt{xscale}] Magnitude of each forced response $[1 \times M]$
 \item[\texttt{gammaC}] Noise magnitude of each forced response $[1 \times M]$
 \end{itemize}
-\emph{\textbf{Notes: }We are currently using Mat\'ern random fields to simulate forced responses due to their speed and flexibility. Each response is individually parameterized. As in the climate variability, it is easy to change the method by a single-line edit.}
+
 
 \clearpage
 \subsection{Parameter Settings}
@@ -148,13 +219,14 @@ Regression: $(M,\beta_0) = (2,[1,1])$
 
 \end{outline}
 
+\clearpage
 \subsection{Questions to answer}
 \begin{outline}
 \1 Should we be whitening $\C$, the climate variability? If so, what is the physical meaning behind this whitening?
 \1 Do we still need both the x-scale and $\gamma_C$ parameters? Looks like probably: x-scale modifies the magnitude of the signal, $\gamma_C$ modifies the magnitude of the noise. There may be a different way to parameterize this, but we do need two parameters to set the relative scale of the forced responses as well as the signal-to-noise ratio of each of the forced responses.
 \2 In a similar vein, is there a smarter way to balance the relative scales of the Mat\'ern generated forced responses? How do you take the norm of a matrix? What norm could we use to fix the ratio between the two fields?
 \2 Could this philosophy be used to fix a signal-to-noise ratio in a more robust way as well?
-\1 Do we need to add autocorrelation to the simulation of the control fields?
+\1 I'm starting to get in trouble with language. I want to refer to observed and latent variables/objects, but we are also using the word observed in ``observed climate response''. 
 \end{outline}
 
 

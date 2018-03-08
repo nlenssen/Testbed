@@ -4,8 +4,7 @@
 % settings for the testbed.
 
 % Author: Nathan Lenssen, Columbia University (lenssen@ldeo.columbia.edu)
-% D+A Testbed Version: 1.0.0 (December 6, 2017)
-
+% D+A Testbed Version: 1.1.0 (March 2018)
 
 % Recreate Figure (3.c) in Paper
 Sig0 = V*diag(d)*V';

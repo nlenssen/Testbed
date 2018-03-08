@@ -1,8 +1,7 @@
 % Function to generate a rectangular harmonic basis of an exponential kernel
 
 % Author: Nathan Lenssen, Columbia University (lenssen@ldeo.columbia.edu)
-% D+A Testbed Version: 1.0.0 (December 6, 2017)
-
+% D+A Testbed Version: 1.1.0 (March 2018)
 
 % INPUT:
 % n0:  	Number of observations (50 x 50 right now)

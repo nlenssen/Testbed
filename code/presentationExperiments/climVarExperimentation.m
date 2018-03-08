@@ -7,17 +7,12 @@ L=1; L0=1;
 
 % change the parameters of interest for the climate variability
 
-% kernel scale
-dExp = 5;
+% settings 1
+dExp = 5; nx = 100; rho = 1;
+rng(251); lambda = exp(unifrnd(-2.5,2.5,nx,1)); 
 
-% eigenvalue cutoff for variability generation
-nx = 100;    
+% settings 2
 
-% the random factor e-value modification
-rng(251); lambda = exp(unifrnd(-2.5,2.5,nx,1)); % to replicate the figures
-
-% whitening parameter for the climate variability covariance (0 is iid)
-rho = 1;
 
 
 % run the simulation script

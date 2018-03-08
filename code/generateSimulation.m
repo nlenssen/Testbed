@@ -3,18 +3,27 @@
 % parameters are set in the parameterList.m script.
 
 % Author: Nathan Lenssen, Columbia University (lenssen@ldeo.columbia.edu)
-% D+A Testbed Version: 1.0.0 (December 6, 2017)
-
+% D+A Testbed Version: 1.1.0 (March 2018)
 
 % set seed for reproducibility
 rng(seed)
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % generate the internal climate variability covariance matrix C
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% interchangable code for different covariance generation schemes
 [x,y,Vin,din] = generateRecBasis(n,dExp);
-[V, d, Sig, SigSqr] = generateCovExact(n, nx, lambda, rho,Vin,din);
+[V, d, Sig, SigSqr] = generateCovExact(n, nx, lambda, delta,Vin,din);
 
+% assign C for the simulation
+C = SigSqr;
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% generate regressors (currently matern, scale?, whitening?)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% interchangable code for different forced response simulations
 XstarRaw = zeros(n,M);
 for MInd=1:M
 	maternCovX = generateMatern(n,alphax(MInd),smoothnessx(MInd));
@@ -26,15 +35,20 @@ XstarCentered = (XstarRaw - repmat(mean(XstarRaw), size(XstarRaw,1), 1));
 XstarStd = XstarCentered;
 
 xScaleFactor = kron(xscale,ones(n,1));
+
+% set the Xstar matrix for the simulation
 Xstar = xScaleFactor .* XstarStd;
 
-% generate the X noise Eta (correct scale?, whiten?)[nx(mxp)]
-XstarExpand = kron(Xstar,ones(1,L));
-Eta = mvnrnd(zeros(n,1), SigSqr,M*L)';
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Simulate output given C, Xstar, parameterList 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% generate the X noise U (correct scale?, whiten?)[nx(mxp)]
+XstarExpand = kron(Xstar,ones(1,L));
+U = mvnrnd(zeros(n,1), C,M*L)';
 % generate the observed X [nx(mxp)]
 gammaFactor = kron(gammaC.^(-1),ones(n,L));
-Xobs = XstarExpand + gammaFactor .* Eta;
+Xobs = XstarExpand + gammaFactor .* U;
 
 % calculate the ensemble means for each of the regressors
 XensembleMean = zeros(n,M);
@@ -44,13 +58,15 @@ for xInd=1:M
 end
 
 % generate the Y noise Nu (correct scale?)
-W = mvnrnd(zeros(n,1), sigmaW * eye(n),1)';
+u       = mvnrnd(zeros(n,1), C,1)';
+epsilon = mvnrnd(zeros(n,1), sigmaW * eye(n),1)';
+nu      = u + epsilon;
 
 % generate the resultant observed Y
-Yobs = XensembleMean * beta0 + W;
+Yobs = Xstar * betaTrue + nu;
 
 % generate the true climate response
-Ystar = Xstar * beta0;
+Ystar = Xstar * betaTrue;
 
 % generate control runs
-EpsilonEnsemble = mvnrnd(zeros(n,1),SigSqr,L0)';
+U0Ensemble = mvnrnd(zeros(n,1),C,L0)';
