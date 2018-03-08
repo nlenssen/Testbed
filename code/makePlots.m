@@ -74,7 +74,7 @@ print(singlePointCorr,sprintf('%s/ptCorrelation.png',plotDirectory),'-dpng')
 
 % get a sense of the true X1, the ensemble mean, and the ensemble members
 xGen1 = figure('visible','off','Position', [10, 10, 1000, 1500]);
-XensembleSubMat = Xobs(:,1:m);
+XensembleSubMat = Xobs(:,1:L);
 zRange = max(max(abs(XensembleSubMat)));
 
 subplot(3,2,1)
@@ -101,7 +101,7 @@ print(xGen1,sprintf('%s/xGeneration1.png',plotDirectory),'-dpng')
 
 % get a sense of the true X2, the ensemble mean, and the ensemble members
 xGen2 = figure('visible','off','Position', [10, 10, 1000, 1500]);
-XensembleSubMat = Xobs(:,(m+1):2*m);
+XensembleSubMat = Xobs(:,(L+1):2*L);
 zRange = max(max(abs(XensembleSubMat)));
 
 subplot(3,2,1)
@@ -140,13 +140,13 @@ title('$$\bar X$$ Field','interpreter','latex','FontSize',20)
 colorbar
 axis square
 subplot(2,2,3)
-pcolor(reshape(Eta(:,1),q,q))
-title('$$\eta$$ Field','interpreter','latex','FontSize',20)
+pcolor(reshape(U(:,1),q,q))
+title('$$U$$ Field','interpreter','latex','FontSize',20)
 colorbar
 axis square
 subplot(2,2,4)
 pcolor(reshape(XensembleMean(:,1),q,q))
-title('$$X_1 = X^*_1 + \eta$$ Field','interpreter','latex','FontSize',20)
+title('$$X_1 = X^*_1 + U$$ Field','interpreter','latex','FontSize',20)
 colorbar
 axis square
 print(xProg,sprintf('%s/xprogression.png',plotDirectory),'-dpng')
