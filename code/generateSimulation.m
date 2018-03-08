@@ -17,7 +17,7 @@ rng(seed)
 [V, d, Sig, SigSqr] = generateCovExact(n, nx, lambda, delta,Vin,din);
 
 % assign C for the simulation
-C = SigSqr;
+CTrue = SigSqr;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% generate regressors (currently matern, scale?, whitening?)
@@ -40,12 +40,12 @@ xScaleFactor = kron(xscale,ones(n,1));
 Xstar = xScaleFactor .* XstarStd;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Simulate output given C, Xstar, parameterList 
+%% Simulate output given CTrue, Xstar, parameterList 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % generate the X noise U (correct scale?, whiten?)[nx(mxp)]
 XstarExpand = kron(Xstar,ones(1,L));
-U = mvnrnd(zeros(n,1), C,M*L)';
+U = mvnrnd(zeros(n,1), CTrue,M*L)';
 % generate the observed X [nx(mxp)]
 gammaFactor = kron(gammaC.^(-1),ones(n,L));
 Xobs = XstarExpand + gammaFactor .* U;
@@ -58,7 +58,7 @@ for xInd=1:M
 end
 
 % generate the Y noise Nu (correct scale?)
-u       = mvnrnd(zeros(n,1), C,1)';
+u       = mvnrnd(zeros(n,1), CTrue,1)';
 epsilon = mvnrnd(zeros(n,1), sigmaW * eye(n),1)';
 nu      = u + epsilon;
 
@@ -69,4 +69,4 @@ Yobs = Xstar * betaTrue + nu;
 Ystar = Xstar * betaTrue;
 
 % generate control runs
-U0Ensemble = mvnrnd(zeros(n,1),C,L0)';
+U0Ensemble = mvnrnd(zeros(n,1),CTrue,L0)';

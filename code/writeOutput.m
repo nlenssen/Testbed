@@ -9,7 +9,7 @@
 % collect all of the objects in a struct
 
 % true, latent objects
-latent = struct('Ystar',Ystar,'Xstar',Xstar);
+latent = struct('Ystar',Ystar,'Xstar',Xstar,'CTrue',CTrue);
 
 % observed objects
 observed = struct('Yobs',Yobs,'Xobs',Xobs,'ControlEnsemble',U0Ensemble);
