@@ -79,3 +79,4 @@ delta = 1;
 
 % measurement error on the observed Y
 sigmaW = 0.25;
+% do one idd, one random independent variances.

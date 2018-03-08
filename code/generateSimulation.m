@@ -48,6 +48,7 @@ XstarExpand = kron(Xstar,ones(1,L));
 U = mvnrnd(zeros(n,1), CTrue,M*L)';
 % generate the observed X [nx(mxp)]
 gammaFactor = kron(gammaC.^(-1),ones(n,L));
+
 Xobs = XstarExpand + gammaFactor .* U;
 
 % calculate the ensemble means for each of the regressors
