@@ -7,20 +7,20 @@
 
 % INPUT:
 % n0:  	      Number of observations (50 x 50 right now)
-% alpha:      Inverse of the range of the correlation
+% range:      Range of the correlation
 % smoothness: Controls the number of derivatives used
 
 % OUTPUT:
 % K: A (n0 x n0) Matern covariance matrix 
 
 
-function [K] = generateMatern(n0,alpha,smoothness)
+function [K] = generateMatern(n0,range,smoothness)
 	nu = smoothness;
 	q = ceil(sqrt(n0));
 	[x, y] = meshgrid(linspace(0,1,q),linspace(0,1,q));
 	gridList = [x(:), y(:)];
 
-	dMat = pdist2(gridList,gridList) .* alpha + (1e-10 * eye(n0));
+	dMat = pdist2(gridList,gridList) .* (1/range) + (1e-10 * eye(n0));
 	% compute the kernel matrix using the gram kernel construction
 
     con = (2^(nu - 1)) * gamma(nu);

@@ -26,7 +26,7 @@ CTrue = SigSqr;
 % interchangable code for different forced response simulations
 XstarRaw = zeros(n,M);
 for MInd=1:M
-	maternCovX = generateMatern(n,alphax(MInd),smoothnessx(MInd));
+	maternCovX = generateMatern(n,rangeX(MInd),smoothnessX(MInd));
 	XstarRaw(:,MInd) = mvnrnd(zeros(n,1), maternCovX,1)';
 end
 
@@ -34,7 +34,7 @@ end
 XstarCentered = (XstarRaw - repmat(mean(XstarRaw), size(XstarRaw,1), 1));
 XstarStd = XstarCentered;
 
-xScaleFactor = kron(xscale,ones(n,1));
+xScaleFactor = kron(scaleX,ones(n,1));
 
 % set the Xstar matrix for the simulation
 Xstar = xScaleFactor .* XstarStd;
@@ -45,11 +45,14 @@ Xstar = xScaleFactor .* XstarStd;
 
 % generate the X noise U (correct scale?, whiten?)[nx(mxp)]
 XstarExpand = kron(Xstar,ones(1,L));
-U = mvnrnd(zeros(n,1), CTrue,M*L)';
-% generate the observed X [nx(mxp)]
-gammaFactor = kron(gammaC.^(-1),ones(n,L));
 
-Xobs = XstarExpand + gammaFactor .* U;
+U = [];
+for ind=1:M
+	U = [U,mvnrnd(zeros(n,1), (gammaC(ind)).^(-1) .* CTrue,L)'];
+end
+
+% generate the observed X [nx(mxp)]
+Xobs = XstarExpand + U;
 
 % calculate the ensemble means for each of the regressors
 XensembleMean = zeros(n,M);
@@ -58,16 +61,18 @@ for xInd=1:M
 	XensembleMean(:,xInd) = mean(Xobs(:,inds),2);
 end
 
-% generate the Y noise Nu (correct scale?)
-u       = mvnrnd(zeros(n,1), CTrue,1)';
-epsilon = mvnrnd(zeros(n,1), sigmaW * eye(n),1)';
-nu      = u + epsilon;
+% Generate the realized climate response Y
+u = mvnrnd(zeros(n,1), (alphaC).^(-1) .* CTrue,1)';
+y = Xstar * betaTrue + u;
 
-% generate the resultant observed Y
-Yobs = Xstar * betaTrue + nu;
+% generate the observed climate response Yobs
+yExpand = kron(y,ones(1,Nobs));
+epsilon = mvnrnd(zeros(n,1), diag(sigmaW),Nobs)';
 
-% generate the true climate response
-Ystar = Xstar * betaTrue;
+yobs    = yExpand + epsilon;
+
+% generate the true, latent climate response
+ystar = Xstar * betaTrue;
 
 % generate control runs
 U0Ensemble = mvnrnd(zeros(n,1),CTrue,L0)';

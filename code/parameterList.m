@@ -45,21 +45,21 @@ betaTrue = ones(M,1);
 % currently using a matern spatial field as the true forced response
 
 % control the shape of the Matern for the true focings Xstar
-alphax = [1,3];
-smoothnessx = [1,0.5];
+rangeX = [1,1/3];
+smoothnessX = [1,0.5];
 
 % scale the magnitudes of the foreced responses
-xscale = [2,0.7];
-
-% scaling factors as in Smith et al. 20xx
-gammaC = [0.5,0.6];
+scaleX = [2,0.7];
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (M2) Climate Variability Simulation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% currently using a eigen-perturbed exponential kernel
+% scaling factors as in Smith et al. 20xx
+gammaC = [0.5,0.6];
+alphaC = 1;
 
+% currently using a eigen-perturbed exponential kernel
 % kernel scale
 dExp = 0.25;
 
@@ -75,8 +75,10 @@ delta = 1;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (M3) Observational Error Simulation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% currently using iid errors
+% currently using independent errors
+
+% number of observations
+Nobs = 100;
 
 % measurement error on the observed Y
-sigmaW = 0.25;
-% do one idd, one random independent variances.
+sigmaW = repmat(0.25,1,n);

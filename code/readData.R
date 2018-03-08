@@ -5,11 +5,12 @@ library(R.matlab)
 rawIn <- readMat('output/testbedOutput.mat')
 
 # delist the huge mess that R sees in the mat file
-Ystar      <- c(rawIn$outStruct[[1]][[1]])
+ystar      <- c(rawIn$outStruct[[1]][[1]])
 Xstar      <-   rawIn$outStruct[[1]][[2]]
 CTrue      <-   rawIn$outStruct[[1]][[3]]
+y          <- c(rawIn$outStruct[[1]][[4]])
 
-Yobs       <- c(rawIn$outStruct[[2]][[1]])
+Yobs       <-   rawIn$outStruct[[2]][[1]]
 Xobs       <-   rawIn$outStruct[[2]][[2]]
 U0Ensemble <-   rawIn$outStruct[[2]][[3]]
 
