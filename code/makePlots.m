@@ -8,8 +8,8 @@
 
 % Recreate Figure (3.c) in Paper
 Sig0 = V*diag(d)*V';
-u = round(n*rand(1,q));
-sig = Sig(u,u);
+uInd = round(n*rand(1,q));
+sig = Sig(uInd,uInd);
 s = sqrt(diag(sig));
 sig = sig./(s*s');
 sig = reshape(sig,n,1);
@@ -18,9 +18,9 @@ xG = linspace(0,1,q);
 yG  = xG;
 [xG, yG] = meshgrid(xG,yG);
 x1 = reshape(xG,n,1); 
-x1 = x1(u)*ones(1,q);
+x1 = x1(uInd)*ones(1,q);
 y1 = reshape(yG,n,1);
-y1 = y1(u)*ones(1,q);
+y1 = y1(uInd)*ones(1,q);
 dist = reshape(sqrt((x1-x1').^2+(y1-y1').^2),n,1);
 
 checkExp = figure('visible','off','Position', [10, 10, 1200, 600]);
