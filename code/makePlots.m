@@ -26,8 +26,8 @@ dist = reshape(sqrt((x1-x1').^2+(y1-y1').^2),n,1);
 checkExp = figure('visible','off','Position', [10, 10, 1200, 600]);
 subplot(1,2,1);
 hold;
-plot(d(1:nx),'-ok');
-plot(d(1:nx).*lambda,'-or')
+plot(d(1:Nlambda),'-ok');
+plot(d(1:Nlambda).*lambda,'-or')
 legend('Raw eigenvalues', 'Lambda modfied eigenvalues');
 xlabel('Eigenvalue');
 ylabel('Magnitude');
@@ -48,23 +48,27 @@ print(checkExp,sprintf('%s/checkExp.png',plotDirectory),'-dpng')
 
 % Recreate Figure (3.d) in Paper
 singlePointCorr = figure('visible','off','Position', [10, 10, 1200, 600]);
-q = ceil(sqrt(n));
-D = sqrt(diag(SigSqr));
+
+D = sqrt(diag(CTrue));
 CorrMat = inv(diag(D)) * SigSqr * inv(diag(D))';
+
 subplot(1,2,1)
 PlotMat = reshape(CorrMat(:,20),q,q);
 tempSort = sort(PlotMat(:));
 plottingRange = [tempSort(1),tempSort(n-1)];
 pcolor(PlotMat)
+colormap(jet)
 caxis(plottingRange)
 title('Correlation to single point','interpreter','latex','FontSize',20)
 colorbar
 axis square
+
 subplot(1,2,2)
 PlotMat = reshape(CorrMat(:,1625),q,q);
 tempSort = sort(PlotMat(:));
 plottingRange = [tempSort(1),tempSort(n-1)];
 pcolor(PlotMat)
+colormap(jet)
 caxis(plottingRange)
 title('Correlation to single point','interpreter','latex','FontSize',20)
 colorbar
@@ -85,6 +89,7 @@ colorbar
 axis square
 subplot(3,2,2)
 pcolor(reshape(XensembleMean(:,1),q,q))
+colormap(jet)
 title('$$\bar x_1$$ Field','interpreter','latex','FontSize',20)
 caxis([-zRange,zRange])
 colorbar
@@ -92,6 +97,7 @@ axis square
 for i=1:4
 	subplot(3,2,i+2)
 	pcolor(reshape(XensembleSubMat(:,i),q,q))
+	colormap(jet)
 	title(sprintf('$$x_1$$ Realization %d', i),'interpreter','latex','FontSize',20)
 	caxis([-zRange,zRange])
 	colorbar
@@ -106,6 +112,7 @@ zRange = max(max(abs(XensembleSubMat)));
 
 subplot(3,2,1)
 pcolor(reshape(Xstar(:,2),q,q))
+colormap(jet)
 title('$$x^*_2$$ Field','interpreter','latex','FontSize',20)
 caxis([-zRange,zRange])
 colorbar
@@ -119,6 +126,7 @@ axis square
 for i=1:4
 	subplot(3,2,i+2)
 	pcolor(reshape(XensembleSubMat(:,i),q,q))
+	colormap(jet)
 	title(sprintf('$$x_2$$ Realization %d', i),'interpreter','latex','FontSize',20)
 	caxis([-zRange,zRange])
 	colorbar
@@ -131,22 +139,29 @@ print(xGen2,sprintf('%s/xGeneration2.png',plotDirectory),'-dpng')
 xProg = figure('visible','off','Position', [10, 10, 1000, 1000]);
 subplot(2,2,1)
 pcolor(reshape(Xstar(:,1),q,q))
-title('$$X^*_1$$ Field','interpreter','latex','FontSize',20)
+colormap(jet)
+title('$$x^*_1$$ Field','interpreter','latex','FontSize',20)
 colorbar
 axis square
+
 subplot(2,2,2)
 pcolor(reshape(XensembleMean(:,1),q,q))
-title('$$\bar X$$ Field','interpreter','latex','FontSize',20)
+colormap(jet)
+title('$$\bar x_1$$ Field','interpreter','latex','FontSize',20)
 colorbar
 axis square
+
 subplot(2,2,3)
 pcolor(reshape(U(:,1),q,q))
-title('$$U$$ Field','interpreter','latex','FontSize',20)
+colormap(jet)
+title('$$u_1^{(1)}$$ Field','interpreter','latex','FontSize',20)
 colorbar
 axis square
+
 subplot(2,2,4)
 pcolor(reshape(XensembleMean(:,1),q,q))
-title('$$X_1 = X^*_1 + U$$ Field','interpreter','latex','FontSize',20)
+colormap(jet)
+title('$$x_1^{(1)} = x^*_1 + u_1^{(1)}$$ Field','interpreter','latex','FontSize',20)
 colorbar
 axis square
 print(xProg,sprintf('%s/xprogression.png',plotDirectory),'-dpng')
@@ -154,18 +169,20 @@ print(xProg,sprintf('%s/xprogression.png',plotDirectory),'-dpng')
 
 
 % the y sum progression
-zRange = max(max(abs(Yobs)));
+zRange = max(max(abs(y)));
 yProg = figure('visible','off','Position', [10, 10, 1000, 1500]);
 title('Y Generation Progression')
 subplot(3,2,1)
-pcolor(reshape(Ystar,q,q))
+pcolor(reshape(ystar,q,q))
+colormap(jet)
 title('$$y^* = x^* \beta$$ (True Field)','interpreter','latex','FontSize',20)
 colorbar
 axis square
 caxis([-zRange,zRange])
 
 subplot(3,2,2)
-pcolor(reshape(Yobs,q,q))
+pcolor(reshape(y,q,q))
+colormap(jet)
 title('$$y = \bar x \beta + \nu$$ (Observed Field)','interpreter','latex','FontSize',20)
 colorbar
 axis square
@@ -173,6 +190,7 @@ caxis([-zRange,zRange])
 
 subplot(3,2,3)
 pcolor(reshape(Xstar(:,1),q,q))
+colormap(jet)
 title('$$x^*_1$$ Field','interpreter','latex','FontSize',20)
 colorbar
 axis square
@@ -180,6 +198,7 @@ caxis([-zRange,zRange])
 
 subplot(3,2,4)
 pcolor(reshape(XensembleMean(:,1),q,q))
+colormap(jet)
 title('$$\bar x_1$$ Field','interpreter','latex','FontSize',20)
 colorbar
 axis square
@@ -187,6 +206,7 @@ caxis([-zRange,zRange])
 
 subplot(3,2,5)
 pcolor(reshape(Xstar(:,2),q,q))
+colormap(jet)
 title('$$x^*_2$$ Field','interpreter','latex','FontSize',20)
 colorbar
 axis square
@@ -195,6 +215,7 @@ caxis([-zRange,zRange])
 
 subplot(3,2,6)
 pcolor(reshape(XensembleMean(:,2),q,q))
+colormap(jet)
 title('$$\bar x_2$$ Field','interpreter','latex','FontSize',20)
 colorbar
 axis square

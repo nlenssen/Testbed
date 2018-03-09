@@ -14,7 +14,7 @@ rng(seed)
 
 % interchangable code for different covariance generation schemes
 [x,y,Vin,din] = generateRecBasis(n,dExp);
-[V, d, Sig, SigSqr] = generateCovExact(n, nx, lambda, delta,Vin,din);
+[V, d, Sig, SigSqr] = generateCovExact(n, Nlambda, lambda, delta,Vin,din);
 
 % assign C for the simulation
 CTrue = SigSqr;
@@ -32,12 +32,17 @@ end
 
 % center and (standarize?) the xstars
 XstarCentered = (XstarRaw - repmat(mean(XstarRaw), size(XstarRaw,1), 1));
-XstarStd = XstarCentered;
 
-xScaleFactor = kron(scaleX,ones(n,1));
+xNorm = zeros(1,M);
+
+for i=1:M
+	xNorm(i) =  norm(XstarCentered(:,i));
+end
+
+xScalingMatrix = diag( (magnitudeX .* (xNorm/max(xNorm))).^(-1));
 
 % set the Xstar matrix for the simulation
-Xstar = xScaleFactor .* XstarStd;
+Xstar = XstarCentered * xScalingMatrix;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Simulate output given CTrue, Xstar, parameterList 
@@ -67,7 +72,7 @@ y = Xstar * betaTrue + u;
 
 % generate the observed climate response Yobs
 yExpand = kron(y,ones(1,Nobs));
-epsilon = mvnrnd(zeros(n,1), diag(sigmaW),Nobs)';
+epsilon = mvnrnd(zeros(n,1), diag(rho),Nobs)';
 
 yobs    = yExpand + epsilon;
 

@@ -8,8 +8,11 @@ L=1; L0=1;
 % change the parameters of interest for the climate variability
 
 % settings 1
-dExp = 5; nx = 100; rho = 1;
-rng(251); lambda = exp(unifrnd(-2.5,2.5,nx,1)); 
+dExp = 5; 
+Nlambda = 100;
+delta = 1;
+rng(251); 
+lambda = exp(unifrnd(-2.5,2.5,Nlambda,1)); 
 
 % settings 2
 
@@ -39,8 +42,8 @@ dist = reshape(sqrt((x1-x1').^2+(y1-y1').^2),n,1);
 checkExp = figure('visible','on','Position', [10, 10, 600, 1200]);
 subplot(2,1,1);
 hold;
-plot(log(d(1:nx)),'-ok');
-plot(log(d(1:nx).*lambda),'-or')
+plot(log(d(1:Nlambda)),'-ok');
+plot(log(d(1:Nlambda).*lambda),'-or')
 legend('Raw eigenvalues', 'Lambda modfied eigenvalues');
 xlabel('Eigenvalue');
 ylabel('Log-Magnitude');
