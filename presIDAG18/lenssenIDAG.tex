@@ -57,7 +57,7 @@
 
 % OLS
 \begin{frame}
-\frametitle{Statistical Formulation of D+A}
+\frametitle{Statistical Formulation of Detection and Attribution}
 \framesubtitle{Ordinary Least Squares (OLS)}
 
 \structure{Observed Quantities:}
@@ -87,7 +87,7 @@
 
 % EIV model 1: Introduction
 \begin{frame}
-\frametitle{Statistical Formulation of D+A}
+\frametitle{Statistical Formulation of Detection and Attribution}
 \framesubtitle{Error-in-Variable (EIV)}
 \structure{Observed Quantities:}
 \begin{itemize}
@@ -125,7 +125,7 @@
 
 % EIV model 2: Multimodel ensembles
 \begin{frame}
-\frametitle{Statistical Formulation of D+A}
+\frametitle{Statistical Formulation of Detection and Attribution}
 \framesubtitle{Error-in-Variable (EIV): Multimember Ensembles}
 
 For a given forcing $m$, we run ensemble of size $L_m$
@@ -154,7 +154,7 @@ Or for all forcing responses with $\*L = \text{diag}(L_1, \dots, L_M)$
 
 % EIV Model 3: Incoporation of multimodel ensembles
 \begin{frame}
-\frametitle{Statistical Formulation of D+A}
+\frametitle{Statistical Formulation of Detection and Attribution}
 \framesubtitle{Error-in-Variable (EIV): Multimember Ensembles}
 
 \begin{exampleblock}{}
@@ -187,7 +187,7 @@ Plugging into our full error in variable formulation:
 
 % true, realize, observed responses
 \begin{frame}
-\frametitle{Statistical Formulation of D+A}
+\frametitle{Statistical Formulation of Detection and Attribution}
 \framesubtitle{Observed Response Variability}
 
 The \alert{incomplete} expression for the climate response $\*y$ is
@@ -222,16 +222,16 @@ We propose three different $\*y$ states to fully incorporate all of the sources 
 
 % ensembles of distribution 
 \begin{frame}
-\frametitle{Statistical Formulation of D+A}
+\frametitle{Statistical Formulation of Detection and Attribution}
 \framesubtitle{Observed Response Variability}
 
-\begin{exampleblock}{}
+\begin{block}{}
 \vspace*{-\baselineskip}\setlength\belowdisplayshortskip{0pt}
 \begin{alignat*}{3}
 \*y_{rel} &= \*X^* \*\beta + \*u_y \nonumber  \qquad  &\*u_y &\sim \mathcal N(0,\C) \\
 \*y_{obs} &= \*y_{rel} + \*\varepsilon_y &\*\varepsilon_y &\sim \mathcal N(0,\W)
 \end{alignat*}
-\end{exampleblock}
+\end{block}
 
 \structure{Total Observation Variability:} Since the observational and climate variability errors are independent, condense in terms of $\*\nu = \*u_y + \*\varepsilon_y$, the total climate variability
 \begin{align*}
@@ -250,16 +250,16 @@ We propose three different $\*y$ states to fully incorporate all of the sources 
 
 % ensembles of observational ensemble
 \begin{frame}
-\frametitle{Statistical Formulation of D+A}
+\frametitle{Statistical Formulation of Detection and Attribution}
 \framesubtitle{Observed Response Variability}
 
-\begin{exampleblock}{}
+\begin{block}{}
 \vspace*{-\baselineskip}\setlength\belowdisplayshortskip{0pt}
 \begin{alignat*}{3}
 \*y_{rel} &= \*X^* \*\beta + \*u_y \nonumber  \qquad  &\*u_y &\sim \mathcal N(0,\C) \\
 \*y_{obs} &= \*y_{rel} + \*\varepsilon_y &\*\varepsilon_y &\sim \mathcal N(0,\W)
 \end{alignat*}
-\end{exampleblock}
+\end{block}
 
 \structure{Observational Ensembles:} Following the notation of the multimember ensembles with $L_y$ as the size of the observational ensemble
 \begin{align*}
@@ -267,7 +267,7 @@ We propose three different $\*y$ states to fully incorporate all of the sources 
  &=  \*Y_{rel} + (  \*\varepsilon_y^{(1)}, \cdots,   \*\varepsilon_y^{(L_y)}) \: , \qquad \*\varepsilon_y^{(\ell)} \iid \mathcal N(0,\W) \\
 \end{align*}
 
-\alert{Information on $\W$ may be from gained from multiple observations, but information on $\C$ does not increase!}
+\alert{Information about $\W$ may be from gained from multiple observations, but information about $\C$ does not increase!}
 
 \end{frame}
 
@@ -275,37 +275,142 @@ We propose three different $\*y$ states to fully incorporate all of the sources 
 
 
 \begin{frame}
-\frametitle{Statistical Formulation of D+A}
-\framesubtitle{Observed Response Variability}
+\frametitle{Statistical Formulation of Detection and Attribution}
+\framesubtitle{Full Model}
 
+\structure{Full Error-in-Variable Model:}
+\begin{block}{}
+\vspace*{-\baselineskip}\setlength\belowdisplayshortskip{0pt}
+\begin{alignat*}{3}
+\*y_{obs} &= \*y_{rel} + \*\varepsilon_y  \qquad \quad &\*\varepsilon_y &\sim \mathcal N(0,\W)\\
+\*y_{rel} &= \*X^* \*\beta + \*u_y \nonumber  \qquad  &\*u_y &\sim \mathcal N(0,\C) \\
+\overline{\*X} &= \*X^* + \*L^{-1/2} \*U \qquad    &\*u_m &\iid \mathcal N(0,\C)  \:
+\end{alignat*}
+\end{block}
+
+\structure{Scale-Variant Error-in-Variable Model:}
 \begin{exampleblock}{}
 \vspace*{-\baselineskip}\setlength\belowdisplayshortskip{0pt}
 \begin{alignat*}{3}
-\*y_{rel} &= \*X^* \*\beta + \*u_y \nonumber  \qquad  &\*u_y &\sim \mathcal N(0,\C) \\
-\*y_{obs} &= \*y_{rel} + \*\varepsilon_y &\*\varepsilon_y &\sim \mathcal N(0,\W)
+\*y_{obs} &= \*y_{rel} + \*\varepsilon_y  \qquad \quad &\*\varepsilon_y &\sim \mathcal N(0,\W)\\
+\*y_{rel} &= \*X^* \*\beta + \*u_y \nonumber  \qquad  &\*u_y &\sim \mathcal N(0,\alpha^{-1}\,\C) \\
+\overline{\*X} &= \*X^* + \*L^{-1/2} \*U \qquad    &\*u_m &\stackrel{\text{ind}}{\sim} \mathcal N(0,\gamma_m^{-1} \, \C)  \:
 \end{alignat*}
 \end{exampleblock}
 
-\structure{Observational Ensembles:} Following the notation of the multimember ensembles with $L_y$ as the size of the observational ensemble
+\alert{Dorit will talk about fitting this model!}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+% (II) Introduce Testbed
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+% give a sense of why the problem is so complex
+\begin{frame}
+\frametitle{Testbed Motivation}
+\structure{Goal:} Determine the contribution of forcings to the observed climate
+\[
+\*y_{obs} = \*X \* \beta + \*u  \qquad u \sim \mathcal N(0, \C)
+\]
+
+\alert{Reality:} The data and resulting relationships between the forced responses and observations are complicated
+\begin{block}{}
+\vspace*{-\baselineskip}\setlength\belowdisplayshortskip{0pt}
+\begin{alignat*}{3}
+\*y_{obs} &= \*y_{rel} + \*\varepsilon_y  \qquad \quad &\*\varepsilon_y &\sim \mathcal N(0,\W)\\
+\*y_{rel} &= \*X^* \*\beta + \*u_y \nonumber  \qquad  &\*u_y &\sim \mathcal N(0,\alpha^{-1}\,\C) \\
+\overline{\*X} &= \*X^* + \*L^{-1/2} \*U \qquad    &\*u_m &\stackrel{\text{ind}}{\sim} \mathcal N(0,\gamma_m^{-1} \, \C)  \:
+\end{alignat*}
+\end{block}
+\alert{Crux:} Fitting requires estimating $\hat{\C}$, a full-rank $n \times n$ matrix with the number of control runs $L_0 \ll n$
+
+\end{frame}
+
+% list of high-level goals from the testbed
+\begin{frame}
+\frametitle{Testbed Motivation}
+A flexible and tunable testbed will allow researchers working on detection and attribution methods to:
+\begin{itemize}
+\item Evaluate methods by comparing estimated and true parameter values
+\begin{itemize}
+\item Performance scaling as a function of sample size/dimensionality
+\end{itemize}
+\item Simulate real-world scenarios to enable testbed results to represent applications
+\begin{itemize}
+\item Tunable variety of climate response patterns and climate variability covariances
+\end{itemize}
+\item Determine robustness of methods through perturbations of testbed parameters
+\item \structure{Compare multiple D+A methods on variety of scenarios}
+
+\end{itemize}
+
+\end{frame}
+
+% Observed Objects
+\begin{frame}
+\frametitle{Data and Parameters of Interest}
+
+\begin{block}{}
+\vspace*{-\baselineskip}\setlength\belowdisplayshortskip{0pt}
+\begin{alignat*}{3}
+\*y_{obs} &= \*y_{rel} + \*\varepsilon_y  \qquad \quad &\*\varepsilon_y &\sim \mathcal N(0,\W)\\
+\*y_{rel} &= \*X^* \*\beta + \*u_y \nonumber  \qquad  &\*u_y &\sim \mathcal N(0,\alpha^{-1}\,\C) \\
+\overline{\*X} &= \*X^* + \*L^{-1/2} \*U \qquad    &\*u_m &\stackrel{\text{ind}}{\sim} \mathcal N(0,\gamma_m^{-1} \, \C)  \:
+\end{alignat*}
+\end{block}
+
+\alert{Observed Objects:}
+
+\begin{itemize}
+\item[$\*X$] Observed forcing response ensembles
 \begin{align*}
-\*Y_{obs} &= ( \*y_{obs}^{(1)}, \cdots,  \*y_{obs}^{(L_y)}) \\
- &=  \*Y_{rel} + (  \*\varepsilon_y^{(1)}, \cdots,   \*\varepsilon_y^{(L_y)}) \: , \qquad \*\varepsilon_y^{(\ell)} \iid \mathcal N(0,\W) \\
+\*X &= (\*x_1, \dots, \*x_M)\\
+&=([\*x_1^{(1)}, \dots, \*x_1^{(L_1)}], \dots, [\*x_M^{(1)}, \dots, \*x_M^{(L_M)}])
 \end{align*}
+\item[$\*Y_{obs}$] Observed climate response ensemble
+\[
+\*Y_{obs} = (\*y_{obs}^{(1)}, \dots, \*y_{obs}^{(L_y)})
+\]
+\item[$\*X_0$] Control runs from the model used for $\*X$
+\[
+\*X_0 = (\*X_0^{(1)}, \dots, \*X_0^{(L_0)})
+\]
+\end{itemize}
+
+\end{frame}
+
+% Observed Objects
+\begin{frame}
+\frametitle{Data and Parameters of Interest}
+
+\begin{block}{}
+\vspace*{-\baselineskip}\setlength\belowdisplayshortskip{0pt}
+\begin{alignat*}{3}
+\*y_{obs} &= \*y_{rel} + \*\varepsilon_y  \qquad \quad &\*\varepsilon_y &\sim \mathcal N(0,\W)\\
+\*y_{rel} &= \*X^* \*\beta + \*u_y \nonumber  \qquad  &\*u_y &\sim \mathcal N(0,\alpha^{-1}\,\C) \\
+\overline{\*X} &= \*X^* + \*L^{-1/2} \*U \qquad    &\*u_m &\stackrel{\text{ind}}{\sim} \mathcal N(0,\gamma_m^{-1} \, \C)  \:
+\end{alignat*}
+\end{block}
+
+
+\alert{Latent Objects}
+
+\begin{itemize}
+\item[$\theta$] The statistical parameters in the model
+\[
+\theta = (\beta, \alpha, \*\gamma, \C, \W)
+\]
+\item[$\*X^*$] True forcing response $\,\,\*X = (\*x_1, \dots, \*x_M)$
+\item[$\*y^*$] True climate response $\*y^* = \*X \* \beta$
+\item[$\*y_{rel}$] Realized climate response
+\end{itemize}
 
 \end{frame}
 
 
 
-
-
-
-
-
-
-
-
-
-
+% Testbed Modules
 
 
 
