@@ -1,0 +1,4 @@
+Observed response Variability:
+	- Use \nu notation?
+	- Talk with dorit about these two slides. See what story I'm trying to tell: maybe it is just: BE CAREFUL WHERE YOUR ERRORS ARE COMING FROM!
+
