@@ -39,7 +39,7 @@ for i=1:M
 	xNorm(i) =  norm(XstarCentered(:,i));
 end
 
-xScalingMatrix = diag( (magnitudeX .* (xNorm/max(xNorm))).^(-1));
+xScalingMatrix = diag( (magnitudeXStar .* (xNorm/max(xNorm))).^(-1));
 
 % set the Xstar matrix for the simulation
 Xstar = XstarCentered * xScalingMatrix;
