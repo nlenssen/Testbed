@@ -46,7 +46,7 @@ print(maternExample,sprintf('%s/maternExample.png',plotDirectory),'-dpng')
 rectang = zeros(q,q); rectang = rectang + 2;
 rectang(1:10,:) = -2; rectang(41:50,:) = -2;
 
-linrec = kron([linspace(-2,0,25),linspace(0,-2,25)]',ones(1,q));
+linrec = kron([linspace(-2,2,25),linspace(2,-2,25)]',ones(1,q));
 
 simplePlots = figure('visible','on','Position', [10, 10, 600, 1200]);
 subplot(2,1,1)
