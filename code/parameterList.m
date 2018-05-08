@@ -31,7 +31,7 @@ L0 = 1000;
 %%%%%%%%%%%%%%%%%%%%%%%
 
 % set coefficients
-M=2;
+M = 2;
 
 % number of ensembles (eventually length M)
 L = 5;
@@ -63,10 +63,10 @@ alphaC = 1;
 dExp = 5;
 
 % eigenvalue cutoff for variability generation
-Nlambda = 100;    
+nLambda = 100;    
 
 % the random factor e-value modification
-rng(251); lambda = exp(unifrnd(-2.5,2.5,Nlambda,1)); 
+rng(251); lambda = exp(unifrnd(-2.5,2.5,nLambda,1)); 
 
 % whitening parameter for the climate variability covariance (0 is iid)
 delta = 1;
@@ -77,7 +77,7 @@ delta = 1;
 % currently using independent errors
 
 % number of observations
-Nobs = 100;
+nObs = 100;
 
 % measurement error on the observed Y
 rho = repmat(0.25,1,n);

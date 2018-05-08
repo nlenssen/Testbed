@@ -14,13 +14,14 @@
 % delta:    whitening parameter
 
 % OUTPUT:
-% Vfinal:  	 Eigenvectors of covariance matrix	
-% dfinal:    Eigenvalues of covariance matrix (modified by lambda)
-% Sig:     	 Covariance matrix w/o whitening
-% SigSqr:    Covariance matrix w/ whitening according to delta
-% SigInvSqr: Precision matrix w/ whitening according to delta
+% vFinal:  	 Eigenvectors of covariance matrix	
+% dFinal:    Eigenvalues of covariance matrix (modified by lambda)
+% sigma:     	 Covariance matrix w/o whitening
+% sigmaSquared:    Covariance matrix w/ whitening according to delta
+% sigmaInvSquared: Precision matrix squared w/ whitening according to delta
 
-function [Vfinal, dfinal, Sig, SigSqr, SigInvSqr] = generateCovExact(n, nx, lambda, delta, V, d)
+function [vFinal, dFinal, sigma, sigmaSquared, sigmaInverseSquared] = ...
+	generateCovExact(n, nx, lambda, delta, V, d)
 	%% setup grid 
 	q = ceil(sqrt(n));
 	xSeq = linspace(0,1,q);
@@ -32,29 +33,29 @@ function [Vfinal, dfinal, Sig, SigSqr, SigInvSqr] = generateCovExact(n, nx, lamb
 	% perform the economy QR decomposition of our interpolated PC matrix
 	[Q, R] = qr(V(:,1:nx),0);
 
-	Vfinal = Q;
-	dfinal = d(1:nx);
+	vFinal = Q;
+	dFinal = d(1:nx);
 
 	%% Construction of the output covariance matricies
 	% vector of eigenvalues (length nx) adjusted by lambda
-	dt = dfinal.*lambda;
+	dt = dFinal.*lambda;
 
 	% create the distance mat
-	ddelta = delta*dfinal;
+	ddelta = delta*dFinal;
 	Ddelta = ones(n,1)*ddelta'; 
-	D = (Vfinal.*Ddelta)*Vfinal' + (1-delta)*eye(n);
+	D = (vFinal.*Ddelta)*vFinal' + (1-delta)*eye(n);
 
 	% create the various covariance matricies (using the 1mat trick to only 
 	% have to perform one n^2 matrix multiplication)
 	ddeltaSig = delta*dt;
 	sigD = ones(n,1)*ddeltaSig'; 
-	Sig = (Vfinal.*sigD)*Vfinal' + (1-delta)*eye(n);
+	sigma = (vFinal.*sigD)*vFinal' + (1-delta)*eye(n);
 
 	ddeltaSqrSig = sqrt(delta*dt+(1-delta)) - sqrt(1-delta);
 	sqrSigD = ones(n,1)*ddeltaSqrSig';
-	SigSqr = (Vfinal.*sqrSigD)*Vfinal' +sqrt(1-delta)*eye(n);
+	sigmaSquared = (vFinal.*sqrSigD)*vFinal' +sqrt(1-delta)*eye(n);
 
 	ddeltaInvSig = 1./sqrt(delta*dt+(1-delta)) - 1/sqrt(1-delta);
 	invsqrD = ones(n,1)*ddeltaInvSig';
-	SigInvSqr = (Vfinal.*invsqrD)*Vfinal' + 1/sqrt(1-delta)*eye(n);
+	sigmaInverseSquared = (vFinal.*invsqrD)*vFinal' + 1/sqrt(1-delta)*eye(n);
 end

@@ -13,8 +13,8 @@ rng(seed)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % interchangable code for different covariance generation schemes
-[x,y,Vin,din] = generateRecBasis(n,dExp);
-[V, d, Sig, SigSqr] = generateCovExact(n, Nlambda, lambda, delta,Vin,din);
+[x, y, vIn, dIn] = generateRecBasis(n, dExp);
+[V, d, Sig, SigSqr] = generateCovExact(n, nLambda, lambda, delta, vIn, dIn);
 
 % assign C for the simulation
 CTrue = SigSqr;
@@ -71,8 +71,8 @@ u = mvnrnd(zeros(n,1), (alphaC).^(-1) .* CTrue,1)';
 y = Xstar * betaTrue + u;
 
 % generate the observed climate response Yobs
-yExpand = kron(y,ones(1,Nobs));
-epsilon = mvnrnd(zeros(n,1), diag(rho),Nobs)';
+yExpand = kron(y,ones(1,nObs));
+epsilon = mvnrnd(zeros(n,1), diag(rho),nObs)';
 
 yobs    = yExpand + epsilon;
 

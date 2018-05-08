@@ -14,7 +14,7 @@
 % dSort: The descending eigenvalue vector
 
 
-function [x, y, VSort, dSort] = generateRecBasis(n0, dExp)
+function [x, y, vSort, dSort] = generateRecBasis(n0, dExp)
 	q = ceil(sqrt(n0));
 	[x, y] = meshgrid(linspace(0,1,q),linspace(0,1,q));
 	gridList = [x(:), y(:)];
@@ -33,6 +33,6 @@ function [x, y, VSort, dSort] = generateRecBasis(n0, dExp)
 	% confirm that they are sorted
 	[junk,perm]=sort(diag(D),'descend');
 	dSort=diag(D(perm,perm));
-	VSort=V(:,perm);
+	vSort=V(:,perm);
 
 end
