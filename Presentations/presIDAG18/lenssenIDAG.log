@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  14 MAR 2018 11:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  7 MAY 2018 16:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1015,25 +1015,37 @@ Package pdftex.def Info: Images/samsilogo.jpg used on input line 75.
 
 ] [10
 
-] [11
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-] [12
+ [11
 
-] [13
+]
+[12]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-] [14
+ [13
 
-] [15
+]
+[14] [15
 
 ] [16
+
+] [17
+
+] [18
+
+] [19
+
+] [20
 
 ]
 Overfull \vbox (9.01662pt too high) detected at line 505
  []
 
-[17
+[21
 
-] <Images/maternExample.png, id=131, 602.25pt x 807.015pt>
+] <Images/maternExample.png, id=152, 602.25pt x 807.015pt>
 File: Images/maternExample.png Graphic file (type png)
 
 <use Images/maternExample.png>
@@ -1043,17 +1055,17 @@ Package pdftex.def Info: Images/maternExample.png used on input line 554.
 Overfull \vbox (6.06358pt too high) detected at line 554
  []
 
-[18
+[22
 
  <./Images/maternExample.png (PNG copy)>]
-<Images/simpleXExample.png, id=138, 364.2408pt x 640.3122pt>
+<Images/simpleXExample.png, id=159, 364.2408pt x 640.3122pt>
 File: Images/simpleXExample.png Graphic file (type png)
 
 <use Images/simpleXExample.png>
 Package pdftex.def Info: Images/simpleXExample.png used on input line 573.
 (pdftex.def)             Requested size: 128.36073pt x 225.64656pt.
 
-<Images/maternExample2.png, id=140, 364.7226pt x 624.8946pt>
+<Images/maternExample2.png, id=161, 364.7226pt x 624.8946pt>
 File: Images/maternExample2.png Graphic file (type png)
 
 <use Images/maternExample2.png>
@@ -1063,10 +1075,10 @@ Package pdftex.def Info: Images/maternExample2.png used on input line 573.
 Overfull \vbox (2.37344pt too high) detected at line 573
  []
 
-[19
+[23
 
  <./Images/simpleXExample.png> <./Images/maternExample2.png>]
-<Images/expoCorrelation.png, id=149, 602.25pt x 1204.5pt>
+<Images/expoCorrelation.png, id=169, 602.25pt x 1204.5pt>
 File: Images/expoCorrelation.png Graphic file (type png)
 
 <use Images/expoCorrelation.png>
@@ -1076,64 +1088,64 @@ Package pdftex.def Info: Images/expoCorrelation.png used on input line 597.
 Overfull \vbox (4.31769pt too high) detected at line 597
  []
 
-[20
+[24
 
  <./Images/expoCorrelation.png (PNG copy)>]
-<Images/recBasis.png, id=155, 1441.5456pt x 807.015pt>
+<Images/recBasis.png, id=176, 1441.5456pt x 807.015pt>
 File: Images/recBasis.png Graphic file (type png)
 
 <use Images/recBasis.png>
 Package pdftex.def Info: Images/recBasis.png used on input line 607.
 (pdftex.def)             Requested size: 342.2953pt x 191.61879pt.
- [21
+ [25
 
  <./Images/recBasis.png (PNG copy)>]
-<Images/modCorrelation.png, id=163, 472.164pt x 670.1838pt>
+<Images/modCorrelation.png, id=185, 472.164pt x 670.1838pt>
 File: Images/modCorrelation.png Graphic file (type png)
 
 <use Images/modCorrelation.png>
 Package pdftex.def Info: Images/modCorrelation.png used on input line 626.
 (pdftex.def)             Requested size: 154.03183pt x 218.62524pt.
 
-<Images/modCorrelation2.png, id=164, 445.1832pt x 638.8668pt>
+<Images/modCorrelation2.png, id=186, 445.1832pt x 638.8668pt>
 File: Images/modCorrelation2.png Graphic file (type png)
 
 <use Images/modCorrelation2.png>
 Package pdftex.def Info: Images/modCorrelation2.png used on input line 626.
 (pdftex.def)             Requested size: 150.61075pt x 216.13951pt.
- [22
+ [26
 
- <./Images/modCorrelation.png> <./Images/modCorrelation2.png>] [23
+ <./Images/modCorrelation.png> <./Images/modCorrelation2.png>] [27
 
 ]
-<Images/xGeneration.png, id=177, 802.6788pt x 634.5306pt>
+<Images/xGeneration.png, id=199, 802.6788pt x 634.5306pt>
 File: Images/xGeneration.png Graphic file (type png)
 
 <use Images/xGeneration.png>
 Package pdftex.def Info: Images/xGeneration.png used on input line 674.
 (pdftex.def)             Requested size: 256.72147pt x 202.94743pt.
- [24
+ [28
 
  <./Images/xGeneration.png>]
-<Images/yprogression.png, id=189, 1441.5456pt x 807.015pt>
+<Images/yprogression.png, id=210, 1441.5456pt x 807.015pt>
 File: Images/yprogression.png Graphic file (type png)
 
 <use Images/yprogression.png>
 Package pdftex.def Info: Images/yprogression.png used on input line 685.
 (pdftex.def)             Requested size: 342.2953pt x 191.61879pt.
- [25
+ [29
 
  <./Images/yprogression.png (PNG copy)>]
-[26
+[30
 
-] <Images/yrealized.png, id=202, 1003.5894pt x 807.015pt>
+] <Images/yrealized.png, id=222, 1003.5894pt x 807.015pt>
 File: Images/yrealized.png Graphic file (type png)
 
 <use Images/yrealized.png>
 Package pdftex.def Info: Images/yrealized.png used on input line 742.
 (pdftex.def)             Requested size: 162.58974pt x 130.73817pt.
 
-<Images/yobservation.png, id=203, 444.7014pt x 798.3426pt>
+<Images/yobservation.png, id=223, 444.7014pt x 798.3426pt>
 File: Images/yobservation.png Graphic file (type png)
 
 <use Images/yobservation.png>
@@ -1143,12 +1155,12 @@ Package pdftex.def Info: Images/yobservation.png used on input line 742.
 Overfull \vbox (9.78563pt too high) detected at line 742
  []
 
-[27
+[31
 
- <./Images/yrealized.png (PNG copy)> <./Images/yobservation.png>] [28
+ <./Images/yrealized.png (PNG copy)> <./Images/yobservation.png>] [32
 
 ]
-(./lenssenIDAG.bbl) [29
+(./lenssenIDAG.bbl) [33
 
  </usr/local/texlive/2014/texmf-dist/tex/latex/beamer/art/beamericonarticle.pdf
 >]
@@ -1176,13 +1188,13 @@ LaTeX Font Warning: Size substitutions with differences
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 777.
  ) 
 Here is how much of TeX's memory you used:
- 17241 strings out of 493117
- 332560 string characters out of 6135433
+ 17249 strings out of 493117
+ 332636 string characters out of 6135433
  407667 words of memory out of 5000000
  20174 multiletter control sequences out of 15000+600000
  36927 words of font info for 110 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 56i,17n,63p,410b,709s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 56i,18n,63p,410b,709s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
 /usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
@@ -1208,10 +1220,10 @@ e/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/
 ve/2014/texmf-dist/fonts/type1/public/cm-super/sfso0900.pfb></usr/local/texlive
 /2014/texmf-dist/fonts/type1/public/cm-super/sfso1000.pfb></usr/local/texlive/2
 014/texmf-dist/fonts/type1/public/cm-super/sfso1200.pfb>
-Output written on lenssenIDAG.pdf (29 pages, 2046185 bytes).
+Output written on lenssenIDAG.pdf (33 pages, 2051743 bytes).
 PDF statistics:
- 324 PDF objects out of 1000 (max. 8388607)
- 232 compressed objects within 3 object streams
- 61 named destinations out of 1000 (max. 500000)
+ 346 PDF objects out of 1000 (max. 8388607)
+ 250 compressed objects within 3 object streams
+ 69 named destinations out of 1000 (max. 500000)
  137 words of extra memory for PDF output out of 10000 (max. 10000000)
 

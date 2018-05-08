@@ -6,7 +6,6 @@
 % Author: Nathan Lenssen, Columbia University (lenssen@ldeo.columbia.edu)
 % D+A Testbed Version: 1.1.0 (March 2018)
 
-addpath('code')
 
 % load in the parameter list to the workspace
 parameterList
@@ -15,7 +14,7 @@ parameterList
 generateSimulation
 
 %run the plotting routine
-if plotting
+if isPlotting
 	makePlots
 end
 

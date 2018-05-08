@@ -7,8 +7,10 @@
 
 
 % set paths
-plotDirectory ='figures';
-dataDirectory ='output';
+plotDirectory ='../figures';
+dataDirectory ='../output';
+
+isPlotting = 1;
 
 % set seed for reproducibility
 seed = 1231531;

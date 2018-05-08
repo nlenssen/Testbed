@@ -200,63 +200,63 @@ A flexible and tunable testbed will allow researchers working on detection and a
 
 \end{frame}
 
-% EIV model 2: Multimodel ensembles
-%\begin{frame}
-%\frametitle{Statistical Formulation of Detection and Attribution}
-%\framesubtitle{Error-in-Variable (EIV): Multimember Ensembles}
-%
-%For a given forcing $m$, we run ensemble of size $L_m$
-%\[
-%\*x_m = ( \*x_m^{(1)}, \dots \*x_m^{(\ell)}, \dots, \*x_m^{(L_m)}) \, , \qquad  \*x_m^{(\ell)} \iid \mathcal{N}(\*x^*_m, \C)
-%\]
-%
-%The \structure{ensemble mean} of the $m^{\text{th}}$ forced response is 
-%\begin{align*}
-%\overline{\*x_m} &= \frac{1}{L_m} \sum_{\ell=1}^{L_m} \*x_m^{(\ell)} \, , \qquad  \overline{\*x_m} \sim \mathcal{N}\left(\*x^*_m, L_m^{-1}\,\C\right)
-%\end{align*}
-%
-%Rewriting in the error-in-variable formulation
-%\[
-%\overline{\*x_m} = \*x^*_m +L_m^{-1/2} \*u_m
-%\]
-%Or for all forcing responses with $\*L = \text{diag}(L_1, \dots, L_M)$
-%\begin{exampleblock}{}
-%\vspace*{-5pt}\setlength\belowdisplayshortskip{0pt}
-%\[
-%\overline{\*X} = \*X^* +\*L^{-1/2} \*U
-%\]
-%\end{exampleblock}
-%\end{frame}
+ EIV model 2: Multimodel ensembles
+\begin{frame}
+\frametitle{Statistical Formulation of Detection and Attribution}
+\framesubtitle{Error-in-Variable (EIV): Multimember Ensembles}
+
+For a given forcing $m$, we run ensemble of size $L_m$
+\[
+\*x_m = ( \*x_m^{(1)}, \dots \*x_m^{(\ell)}, \dots, \*x_m^{(L_m)}) \, , \qquad  \*x_m^{(\ell)} \iid \mathcal{N}(\*x^*_m, \C)
+\]
+
+The \structure{ensemble mean} of the $m^{\text{th}}$ forced response is 
+\begin{align*}
+\overline{\*x_m} &= \frac{1}{L_m} \sum_{\ell=1}^{L_m} \*x_m^{(\ell)} \, , \qquad  \overline{\*x_m} \sim \mathcal{N}\left(\*x^*_m, L_m^{-1}\,\C\right)
+\end{align*}
+
+Rewriting in the error-in-variable formulation
+\[
+\overline{\*x_m} = \*x^*_m +L_m^{-1/2} \*u_m
+\]
+Or for all forcing responses with $\*L = \text{diag}(L_1, \dots, L_M)$
+\begin{exampleblock}{}
+\vspace*{-5pt}\setlength\belowdisplayshortskip{0pt}
+\[
+\overline{\*X} = \*X^* +\*L^{-1/2} \*U
+\]
+\end{exampleblock}
+\end{frame}
 
 
-% EIV Model 3: Incoporation of multimodel ensembles
-%\begin{frame}
-%\frametitle{Statistical Formulation of Detection and Attribution}
-%\framesubtitle{Error-in-Variable (EIV): Multimember Ensembles}
-%
-%\begin{exampleblock}{}
-%\vspace*{-5pt}\setlength\belowdisplayshortskip{0pt}
-%\[
-%\overline{\*X} = \*X^* +\*L^{-1/2} \*U
-%\]
-%\end{exampleblock}
-%
-%Plugging into our full error in variable formulation:
-%
-%\begin{block}{}
-%\vspace*{-\baselineskip}\setlength\belowdisplayshortskip{0pt}
-%\begin{alignat*}{3}
-%\*y &= \*X^* \*\beta + \*u_y \nonumber  \qquad  &\*u_y &\sim \mathcal N(0,\C) \\
-%\overline{\*X} &= \*X^* + \*L^{-1/2} \*U \qquad    &\*u_m &\iid \mathcal N(0,\C)  \:
-%\end{alignat*}
-%\end{block}
-%
-%\begin{itemize}
-%\item[$\overline{\*X}$] The ensemble means $\overline{\*X} = (\overline{\*x_1}, \dots, \overline{\*x_M})$ 
-%\item[$\*L$] The ensemble sizes $\*L = (L_1, \dots, L_M)$
-%\item[$\*U$] The forcing variability matrix $\*U = (\*u_1, \dots, \*u_M)$
-%\end{itemize}
-%\end{frame}
+ EIV Model 3: Incoporation of multimodel ensembles
+\begin{frame}
+\frametitle{Statistical Formulation of Detection and Attribution}
+\framesubtitle{Error-in-Variable (EIV): Multimember Ensembles}
+
+\begin{exampleblock}{}
+\vspace*{-5pt}\setlength\belowdisplayshortskip{0pt}
+\[
+\overline{\*X} = \*X^* +\*L^{-1/2} \*U
+\]
+\end{exampleblock}
+
+Plugging into our full error in variable formulation:
+
+\begin{block}{}
+\vspace*{-\baselineskip}\setlength\belowdisplayshortskip{0pt}
+\begin{alignat*}{3}
+\*y &= \*X^* \*\beta + \*u_y \nonumber  \qquad  &\*u_y &\sim \mathcal N(0,\C) \\
+\overline{\*X} &= \*X^* + \*L^{-1/2} \*U \qquad    &\*u_m &\iid \mathcal N(0,\C)  \:
+\end{alignat*}
+\end{block}
+
+\begin{itemize}
+\item[$\overline{\*X}$] The ensemble means $\overline{\*X} = (\overline{\*x_1}, \dots, \overline{\*x_M})$ 
+\item[$\*L$] The ensemble sizes $\*L = (L_1, \dots, L_M)$
+\item[$\*U$] The forcing variability matrix $\*U = (\*u_1, \dots, \*u_M)$
+\end{itemize}
+\end{frame}
 
 %%%
 % (A) obs formulation
