@@ -48,8 +48,6 @@ betaTrue = ones(M,1);
 rangeX = [1.5,1/2];
 smoothnessX = [1.5,0.25];
 
-% set the relative magnitude of the true forced responses
-magnitudeXStar = [1,1];
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (M2) Climate Variability Simulation

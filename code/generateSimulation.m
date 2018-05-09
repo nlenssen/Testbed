@@ -31,18 +31,7 @@ for MInd=1:M
 end
 
 % center and (standarize?) the xstars
-XstarCentered = (XstarRaw - repmat(mean(XstarRaw), size(XstarRaw,1), 1));
-
-xNorm = zeros(1,M);
-
-for i=1:M
-	xNorm(i) =  norm(XstarCentered(:,i));
-end
-
-xScalingMatrix = diag( (magnitudeXStar .* (xNorm/max(xNorm))).^(-1));
-
-% set the Xstar matrix for the simulation
-Xstar = XstarCentered * xScalingMatrix;
+Xstar = (XstarRaw - repmat(mean(XstarRaw), size(XstarRaw,1), 1));;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Simulate output given CTrue, Xstar, parameterList 
