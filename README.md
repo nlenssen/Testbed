@@ -1,4 +1,4 @@
-# D+A Testbed Version 1.0.0 (December 6, 2017)
+# D+A Testbed Version 1.2.0 (May 9, 2018)
 ##### Nathan Lenssen, Columbia University (lenssen@ldeo.columbia.edu)
 
 ## Citation
