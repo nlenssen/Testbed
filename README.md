@@ -6,8 +6,7 @@ Lenssen, N. J. L., Hannart, A., & Hammerling, D. (2018). Simulation Testbed for 
 
 ## Abstract
 
-A major goal of climate research is attributing the observed changes in the climate to human activity. The field of detection and attribution has been an active and growing for a couple of decades and has recently seen a increase in the quantity and sophistication of methods. In practice, D+A involves showing a causal relationship between the observed climate responses and modeled climate responses to individual forcing. The explosion of research developing methods has prompted the community to come together and design a testbed for the current methods. Such a testbed is difficult to develop as it involves generating spatiotemporal fields with complex and flexible covariance structures that do not inherently favor any of the methods to be tested. The following software uses MATLAB to implement an significant extension of the numerical simulation described in (Hannart 2016) section 4a. The final product is a MATLAB program that will generate synthetic data for a wide parameterized class of climate scenarios.
-
+The field of detection and attribution has been growing for a couple of decades and has recently seen a increase in the quantity and sophistication of methods. The difficulty of comparing these methods has motivated the design of a simulation testbed. Such a testbed is difficult to develop as it involves generating spatiotemporal fields with complex and flexible covariance structures that do not inherently favor any of the methods to be tested. The following testbed has the ability to generate a wide class of isotropic and non-isotropic correlation matrices to simulate the climate variability. The forcing response fields are tunable, spatially correlated fields with adjustable signal-to-noise ratios. The flexibility of the simulation method allows us to replicate a variety of climate model-like output in a controlled setting. In addition to the methods used in the testbed, we present synthetic data for simulated climate scenarios and a user manual for the Matlab software package.
 
 
 ## Quick Start Guide
@@ -78,8 +77,6 @@ A comparison of the observed and true **y** and **x** objects is shown in the Fi
 
 
 ## References:
-
-
 
 Hannart, A., 2016: Integrated Optimal Fingerprinting: Method Description and Illustration. J. Climate, 29, 1977–1998, https://doi.org/10.1175/JCLI-D-14-00124.1
 
