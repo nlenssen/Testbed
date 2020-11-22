@@ -1,6 +1,8 @@
 # D+A Testbed Version 1.0.0 (December 6, 2017)
 ##### Nathan Lenssen, Columbia University (lenssen@ldeo.columbia.edu)
 
+## Citation
+Lenssen, N. J. L., Hannart, A., & Hammerling, D. (2018). Simulation Testbed for Trend Detection and Attribution Methods (No. NCAR/TN-555+STR). doi:10.26024/xfmm-hj36
 
 ## Abstract
 
@@ -76,6 +78,8 @@ A comparison of the observed and true **y** and **x** objects is shown in the Fi
 
 
 ## References:
+
+
 
 Hannart, A., 2016: Integrated Optimal Fingerprinting: Method Description and Illustration. J. Climate, 29, 1977–1998, https://doi.org/10.1175/JCLI-D-14-00124.1
 
