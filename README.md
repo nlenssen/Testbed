@@ -84,10 +84,3 @@ A comparison of the observed and true **y** and **x** objects is shown in the Fi
 Hannart, A., 2016: Integrated Optimal Fingerprinting: Method Description and Illustration. J. Climate, 29, 1977–1998, https://doi.org/10.1175/JCLI-D-14-00124.1
 
 Katzfuss, M., D. Hammerling, and R. L. Smith (2017), A Bayesian hierarchical model for climate change detection and attribution, Geophys. Res. Lett., 44, 5720–5728, doi:10.1002/2017GL073688.
-
-```
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!!!IN PREPARATION, NOT FOR PUBLIC DISTRIBUTION!!!
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-```
-
