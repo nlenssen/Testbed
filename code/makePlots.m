@@ -26,8 +26,8 @@ dist = reshape(sqrt((x1-x1').^2+(y1-y1').^2),n,1);
 checkExp = figure('visible','off','Position', [10, 10, 1200, 600]);
 subplot(1,2,1);
 hold;
-plot(d(1:Nlambda),'-ok');
-plot(d(1:Nlambda).*lambda,'-or')
+plot(d(1:nLambda),'-ok');
+plot(d(1:nLambda).*lambda,'-or')
 legend('Raw eigenvalues', 'Lambda modfied eigenvalues');
 xlabel('Eigenvalue');
 ylabel('Magnitude');
